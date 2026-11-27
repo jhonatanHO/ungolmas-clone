@@ -32,6 +32,8 @@
 
 Web UNGOLMAS platform, developed with `PHP 8.4`, `Laravel 13`, `Apache 2.4`, `MySQL 8.0`, `Vue 3.5`, `TypeScript 5.7` and `Tailwind CSS 4`.
 
+<!-- Documentation for the UNGOLMAS Core project. -->
+
 # UNGOLMAS Core (ugm-core)
 
 Base técnica y arquitectónica de la plataforma modular de juegos y gamificación UNGOLMAS.
