@@ -1,0 +1,22 @@
+{
+  "name": "ugm/integration-ads",
+  "description": "UNGOLMAS Core - Ads Module (integrations)",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": "^8.4",
+    "illuminate/support": "^12.0|^13.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ugm\\Ads\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ugm\\Ads\\Providers\\AdsServiceProvider"
+      ]
+    }
+  }
+}

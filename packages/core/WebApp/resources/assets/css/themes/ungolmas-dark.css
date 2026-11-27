@@ -1,0 +1,16 @@
+/* ==========================================================================
+   TEMA: UNGOLMAS-DARK (Predeterminado Activo por Defecto)
+   Canvas oscuro deportivo para la WebApp de Gaming y Torneos
+   ========================================================================== */
+:root,
+.ungolmas-dark,
+[data-theme="ungolmas-dark"] {
+  --ugm-bg: #0b0f19;         /* Canvas oscuro gamer / Navy profundo */
+  --ugm-card: #131b2e;       /* Tarjetas de torneos y módulos */
+  --ugm-border: #1e293b;     /* Bordes oscuros sutiles */
+  --ugm-text: #f8fafc;       /* Texto principal blanco */
+  --ugm-muted: #94a3b8;      /* Texto secundario gris */
+  --ugm-primary: #6366f1;    /* Color de marca UGM (Indigo) */
+  --ugm-accent: #06b6d4;     /* Cyan complementario */
+  --ugm-gold: #f59e0b;       /* Monedas / Trofeos */
+}

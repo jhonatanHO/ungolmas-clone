@@ -1,0 +1,15 @@
+/* ==========================================================================
+   TEMA: UNGOLMAS-LIGHT (Variante Clara)
+   Canvas claro para la WebApp de Gaming y Torneos
+   ========================================================================== */
+.ungolmas-light,
+[data-theme="ungolmas-light"] {
+  --ugm-bg: #f8fafc;         /* Canvas claro */
+  --ugm-card: #ffffff;       /* Tarjetas de fondo blanco */
+  --ugm-border: #e2e8f0;     /* Bordes claros */
+  --ugm-text: #0f172a;       /* Texto principal oscuro */
+  --ugm-muted: #64748b;      /* Texto secundario */
+  --ugm-primary: #4f46e5;    /* Color de marca UGM */
+  --ugm-accent: #0891b2;     /* Cyan oscuro */
+  --ugm-gold: #d97706;       /* Gold oscuro */
+}

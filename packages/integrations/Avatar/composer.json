@@ -1,0 +1,22 @@
+{
+  "name": "ugm/integration-avatar",
+  "description": "UNGOLMAS Core - Avatar Module (integrations)",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": "^8.4",
+    "illuminate/support": "^12.0|^13.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ugm\\Avatar\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ugm\\Avatar\\Providers\\AvatarServiceProvider"
+      ]
+    }
+  }
+}

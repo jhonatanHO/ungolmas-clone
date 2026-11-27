@@ -1,0 +1,16 @@
+/* ==========================================================================
+   TEMA: CMSNET-DARK (Obsidian Resend)
+   Escala numérica adaptativa de contraste y superficie
+   ========================================================================== */
+.cmsnet-dark,
+[data-theme="cmsnet-dark"] {
+  --theme-50: #09090b;      /* Canvas / Fondo global oscuro Resend */
+  --theme-100: #0c0c0c;     /* Superficies oscuras / Tarjetas / Sidebar */
+  --theme-200: #18181b;     /* Fondos sutiles oscuros / Hover */
+  --theme-300: #262626;     /* Bordes oscuros estructurales (neutral-800) */
+  --theme-400: #525252;     /* Iconos y texto tenue (neutral-600) */
+  --theme-500: #a3a3a3;     /* Texto secundario / Fechas / Ayuda (neutral-400) */
+  --theme-700: #d4d4d4;     /* Texto de cuerpo / Celdas (neutral-300) */
+  --theme-900: #ffffff;     /* Texto principal / Títulos de alto contraste (blanco puro) */
+  --theme-950: #fafafa;     /* Máximo contraste / Botones sólidos */
+}

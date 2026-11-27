@@ -1,0 +1,110 @@
+{
+  "$schema": "https://getcomposer.org/schema.json",
+  "name": "combativa/ungolmas-core",
+  "type": "project",
+  "description": "UNGOLMAS Core - Modular Gaming & Gamification Platform",
+  "keywords": [
+    "laravel",
+    "framework"
+  ],
+  "license": "proprietary",
+  "require": {
+    "php": "^8.3",
+    "laravel/framework": "^13.17",
+    "laravel/tinker": "^3.0"
+  },
+  "require-dev": {
+    "fakerphp/faker": "^1.23",
+    "laravel/pail": "^1.2.5",
+    "laravel/pao": "^1.0.6",
+    "laravel/pint": "^1.27",
+    "mockery/mockery": "^1.6",
+    "nunomaduro/collision": "^8.6",
+    "phpunit/phpunit": "^12.5.12",
+    "larastan/larastan": "^3.0",
+    "phpstan/phpstan": "^2.1",
+    "pestphp/pest": "^3.7",
+    "pestphp/pest-plugin-laravel": "^3.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/",
+      "Ugm\\Config\\": "packages/core/Config/src/",
+      "Ugm\\User\\": "packages/core/User/src/",
+      "Ugm\\WebApp\\": "packages/core/WebApp/src/",
+      "Ugm\\Admin\\": "packages/core/Admin/src/",
+      "Ugm\\Gamification\\": "packages/core/Gamification/src/",
+      "Ugm\\Game\\": "packages/core/Game/src/",
+      "Ugm\\News\\": "packages/integrations/News/src/",
+      "Ugm\\Store\\": "packages/integrations/Store/src/",
+      "Ugm\\Avatar\\": "packages/integrations/Avatar/src/",
+      "Ugm\\Ranking\\": "packages/integrations/Ranking/src/",
+      "Ugm\\Ads\\": "packages/integrations/Ads/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "setup": [
+      "composer install",
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "@php artisan key:generate",
+      "@php artisan migrate --force",
+      "npm install --ignore-scripts",
+      "npm run build"
+    ],
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "@php artisan dev"
+    ],
+    "test": "pest",
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ],
+    "post-update-cmd": [
+      "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+    ],
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "@php artisan key:generate --ansi",
+      "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+      "@php artisan migrate --graceful --ansi"
+    ],
+    "pre-package-uninstall": [
+      "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+    ],
+    "lint": "pint --test",
+    "pint": "pint",
+    "phpstan": "phpstan analyse --memory-limit=2G"
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true,
+      "php-http/discovery": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "path",
+      "url": "packages/*/*"
+    }
+  ]
+}

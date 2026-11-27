@@ -1,0 +1,93 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: ugm_core_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini:ro
+    networks:
+      - ugm_network
+    environment:
+      - APP_ENV=${APP_ENV:-local}
+      - APP_DEBUG=${APP_DEBUG:-true}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/apache/Dockerfile
+    image: ugm_core_apache:2.4
+    container_name: ugm_core_web
+    restart: unless-stopped
+    ports:
+      - '${APP_PORT:-8080}:80'
+    volumes:
+      - ./:/var/www/html
+      - ./docker/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    networks:
+      - ugm_network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: ugm_core_db
+    restart: unless-stopped
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_secret}
+      MYSQL_DATABASE: ${DB_DATABASE:-ungolmas_core}
+      MYSQL_USER: ${DB_USERNAME:-ugm_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-ugm_secret}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - ugm_network
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'mysqladmin',
+          'ping',
+          '-h',
+          'localhost',
+          '-u',
+          'root',
+          '-p${DB_ROOT_PASSWORD:-root_secret}',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: ugm_core_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - '8081:80'
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: ${DB_USERNAME:-ugm_user}
+      PMA_PASSWORD: ${DB_PASSWORD:-ugm_secret}
+      UPLOAD_LIMIT: 64M
+    networks:
+      - ugm_network
+    depends_on:
+      - db
+
+networks:
+  ugm_network:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local

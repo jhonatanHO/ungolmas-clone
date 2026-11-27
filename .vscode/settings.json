@@ -1,0 +1,12 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "pnpm-lock.yaml, tsconfig.json, vite.config.ts, eslint.config.js, tailwind.config.js, postcss.config.js, .bladeformatterrc.json",
+    "composer.json": "composer.lock, phpstan.neon, phpunit.xml, pint.json, pest.php",
+    ".env": ".env.*",
+    ".gitignore": ".gitattributes, .editorconfig, .npmrc",
+    "docker-compose.yml": "Makefile",
+    "README.md": "AGENTS.md, DESIGN.md, SECURITY.md, CLAUDE.md"
+  }
+}

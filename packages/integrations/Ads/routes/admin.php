@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Ads - Admin Routes
+ */

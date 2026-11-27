@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Ads - API Routes
+ */

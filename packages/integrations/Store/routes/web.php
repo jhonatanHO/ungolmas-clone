@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Store - Web Routes
+ */

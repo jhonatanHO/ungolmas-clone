@@ -1,0 +1,22 @@
+{
+  "name": "ugm/integration-ranking",
+  "description": "UNGOLMAS Core - Ranking Module (integrations)",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": "^8.4",
+    "illuminate/support": "^12.0|^13.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ugm\\Ranking\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ugm\\Ranking\\Providers\\RankingServiceProvider"
+      ]
+    }
+  }
+}

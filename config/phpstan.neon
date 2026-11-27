@@ -1,0 +1,14 @@
+includes:
+    - ../vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - ../app
+        - ../packages
+    level: 8
+    ignoreErrors:
+        - '#PHPDoc tag @var#'
+    excludePaths:
+        - ../packages/*/*/vendor/*
+        - ../packages/*/*/node_modules/*
+        - ../tests/*

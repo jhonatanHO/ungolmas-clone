@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Gamification - Admin Routes
+ */

@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Avatar - Web Routes
+ */

@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Ranking - Admin Routes
+ */

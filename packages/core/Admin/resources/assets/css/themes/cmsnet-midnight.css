@@ -1,0 +1,16 @@
+/* ==========================================================================
+   TEMA: CMSNET-MIDNIGHT (Azul Marino Profundo / Linear Style)
+   Escala numérica adaptativa de contraste y superficie
+   ========================================================================== */
+.cmsnet-midnight,
+[data-theme="cmsnet-midnight"] {
+  --theme-50: #0b0f19;      /* Canvas / Fondo Deep Navy */
+  --theme-100: #111827;     /* Superficies / Slate 900 */
+  --theme-200: #1f2937;     /* Fondos sutiles / Slate 800 */
+  --theme-300: #1f2937;     /* Bordes estructurales Slate */
+  --theme-400: #64748b;     /* Iconos y texto tenue Slate 500 */
+  --theme-500: #94a3b8;     /* Texto secundario / Fechas Slate 400 */
+  --theme-700: #cbd5e1;     /* Texto de cuerpo / Celdas Slate 300 */
+  --theme-900: #f8fafc;     /* Texto principal / Títulos Slate 50 */
+  --theme-950: #38bdf8;     /* Acento Sky / Destacados */
+}

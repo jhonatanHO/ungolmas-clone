@@ -1,0 +1,52 @@
+/vendor
+/packages/*/*/vendor
+node_modules/
+/packages/*/*/node_modules
+/public/build
+/public/hot
+dist/
+
+.env
+.env.backup
+.env.production
+.env.*.local
+
+.phpunit.result.cache
+.phpstan.cache
+.pest
+/storage/*.key
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+!/storage/framework/cache/data/.gitignore
+!/storage/framework/sessions/.gitignore
+!/storage/framework/views/.gitignore
+!/storage/logs/.gitignore
+/bootstrap/cache/*
+!/bootstrap/cache/.gitignore
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDEs
+.idea/
+.vscode/*
+!.vscode/settings.json
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# pnpm
+.pnpm-store/
+
+# Local databases and docker volumes
+*.sqlite
+*.sqlite-journal
+docker-compose.override.yml

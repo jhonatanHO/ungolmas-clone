@@ -1,0 +1,37 @@
+/* Temas independientes modulares CMSNET */
+@import "./themes/cmsnet-light.css";
+@import "./themes/cmsnet-dark.css";
+@import "./themes/cmsnet-midnight.css";
+
+@config "../../../tailwind.config.js";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base resets & typography */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Geist", "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: -0.011em;
+  background-color: var(--theme-50);
+  color: var(--theme-900);
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3);
+  border-radius: 9999px;
+}
+:where(.cmsnet-dark, [data-theme="cmsnet-dark"], .cmsnet-midnight, [data-theme="cmsnet-midnight"]) ::-webkit-scrollbar-thumb {
+  background: rgba(75, 85, 99, 0.35);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.6);
+}

@@ -1,0 +1,22 @@
+{
+  "name": "ugm/integration-news",
+  "description": "UNGOLMAS Core - News Module (integrations)",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": "^8.4",
+    "illuminate/support": "^12.0|^13.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ugm\\News\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ugm\\News\\Providers\\NewsServiceProvider"
+      ]
+    }
+  }
+}

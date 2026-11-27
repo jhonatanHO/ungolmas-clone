@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Gamification - API Routes
+ */

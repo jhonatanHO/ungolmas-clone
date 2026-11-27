@@ -1,0 +1,22 @@
+{
+  "name": "ugm/core-game",
+  "description": "UNGOLMAS Core - Game Module (core)",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": "^8.4",
+    "illuminate/support": "^12.0|^13.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ugm\\Game\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ugm\\Game\\Providers\\GameServiceProvider"
+      ]
+    }
+  }
+}

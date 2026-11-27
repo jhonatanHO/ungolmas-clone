@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Ads - Web Routes
+ */

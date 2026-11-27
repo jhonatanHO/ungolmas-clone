@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Ranking - API Routes
+ */

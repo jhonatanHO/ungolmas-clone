@@ -1,0 +1,6 @@
+{
+  "indentSize": 4,
+  "wrapAttributes": "auto",
+  "wrapAttributesMinAttrs": 3,
+  "sortTailwindcssClasses": true
+}

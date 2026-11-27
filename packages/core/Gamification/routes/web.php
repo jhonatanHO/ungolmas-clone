@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Gamification - Web Routes
+ */

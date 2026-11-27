@@ -1,0 +1,5 @@
+<?php
+
+/**
+ * Game - Admin Routes
+ */

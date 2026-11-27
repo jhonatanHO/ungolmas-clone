@@ -1,0 +1,17 @@
+/* ==========================================================================
+   TEMA: CMSNET-LIGHT (Predeterminado Claro)
+   Escala numérica adaptativa de contraste y superficie
+   ========================================================================== */
+:root,
+.cmsnet-light,
+[data-theme="cmsnet-light"] {
+  --theme-50: #ffffff;      /* Canvas / Fondo global de página */
+  --theme-100: #ffffff;     /* Superficies / Tarjetas / Sidebar */
+  --theme-200: #f4f4f5;     /* Fondos sutiles / Cabecera de tabla / Hover */
+  --theme-300: #e5e5e5;     /* Bordes estructurales (neutral-200) */
+  --theme-400: #a3a3a3;     /* Iconos y texto tenue (neutral-400) */
+  --theme-500: #737373;     /* Texto secundario / Fechas / Ayuda (neutral-500) */
+  --theme-700: #404040;     /* Texto de cuerpo / Celdas (neutral-700) */
+  --theme-900: #171717;     /* Texto principal / Títulos de alto contraste (neutral-900) */
+  --theme-950: #0a0a0a;     /* Máximo contraste / Botones sólidos */
+}

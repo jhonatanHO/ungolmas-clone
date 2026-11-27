@@ -1,0 +1,22 @@
+{
+  "name": "ugm/core-config",
+  "description": "UNGOLMAS Core - Config Module (core)",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": "^8.4",
+    "illuminate/support": "^12.0|^13.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ugm\\Config\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ugm\\Config\\Providers\\ConfigServiceProvider"
+      ]
+    }
+  }
+}
