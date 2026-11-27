@@ -6,6 +6,7 @@ namespace Ugm\Admin\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Ugm\Admin\Console\Commands\SeedAdminUsersCommand;
 
 /**
  * Service Provider for UNGOLMAS Admin Module.
@@ -31,6 +32,10 @@ final class AdminServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if ($this->app->runningInConsole()) {
+            $this->commands([SeedAdminUsersCommand::class]);
+        }
+
         // Load database migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
@@ -58,7 +63,7 @@ final class AdminServiceProvider extends ServiceProvider
 
         $adminRoutes = __DIR__.'/../../routes/admin.php';
         if (file_exists($adminRoutes)) {
-            $adminPrefix = config('app.admin_url', 'cmsnet');
+            $adminPrefix = (string) config('custom.admin_url', 'cmsnet');
             Route::prefix($adminPrefix)->middleware(['web'])->group($adminRoutes);
         }
     }

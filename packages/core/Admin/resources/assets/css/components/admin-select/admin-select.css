@@ -1,0 +1,43 @@
+@reference 'tailwindcss';
+
+@layer components {
+  .admin-select-label {
+    @apply mb-1.5 block text-sm font-semibold leading-[1.4] text-[color:var(--theme-900)];
+  }
+
+  .admin-select-wrapper {
+    @apply relative;
+  }
+
+  .admin-select {
+    @apply block min-h-8 w-full appearance-none rounded-md border border-[color:var(--theme-400)] bg-[var(--theme-100)] py-[5px] pl-2 pr-8 text-sm leading-[1.4] text-[color:var(--theme-900)] transition-[border-color,box-shadow] duration-150 ease-out;
+  }
+
+  .admin-select option {
+    @apply bg-[var(--theme-100)] text-[color:var(--theme-900)];
+  }
+
+  .admin-select-wrapper > svg {
+    @apply pointer-events-none absolute right-[9px] top-2 size-4 text-[color:var(--theme-500)];
+  }
+
+  .admin-select:focus-visible {
+    @apply outline-2 outline-solid outline-[color:var(--theme-700)] outline-offset-2;
+  }
+
+  .admin-select:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-select:enabled:hover {
+    @apply border-[color:var(--theme-700)];
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-select {
+    @apply transition-none;
+  }
+}

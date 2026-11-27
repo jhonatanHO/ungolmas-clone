@@ -1,0 +1,63 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import * as AdminSelectStories from './admin-select.stories';
+
+<Meta of={AdminSelectStories} />
+
+# AdminSelect
+
+Selector nativo del panel CMSNET (`packages/core/Admin/resources/assets/css/components/admin-select/admin-select.css`). Conserva el estilo del formulario existente y hereda Light/Dark.
+
+## Base
+
+```html
+<label for="user-type" class="admin-select-label">Tipo de usuario</label>
+<div class="admin-select-wrapper">
+  <select id="user-type" class="admin-select" name="user_type">
+    <option value="">Selecciona un tipo</option>
+    <option value="player">Jugador</option>
+  </select>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+    <path d="m7 10 5 5 5-5" />
+  </svg>
+</div>
+```
+
+## Ejemplos
+
+### Predeterminado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminSelectStories.Default} />
+</div>
+
+### Con selección
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminSelectStories.Selected} />
+</div>
+
+### Deshabilitado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminSelectStories.Disabled} />
+</div>
+
+### Opción deshabilitada
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminSelectStories.DisabledOption} />
+</div>
+
+## Uso y estados
+
+El foco es visible al navegar con Tab. El hover solo cambia el borde; no invierte fondo ni texto.
+El menú de opciones es nativo y su presentación depende del navegador y del sistema operativo.
+Un select no admite `readonly`: utiliza `disabled` cuando corresponda. Los ejemplos no envían datos.
+
+## Clases
+
+| Uso                   | Clase                   |
+| --------------------- | ----------------------- |
+| Etiqueta              | `.admin-select-label`   |
+| Contenedor con flecha | `.admin-select-wrapper` |
+| Selector              | `.admin-select`         |

@@ -1,0 +1,89 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import * as AdminInputStories from './admin-input.stories';
+
+<Meta of={AdminInputStories} />
+
+# AdminInput
+
+Componente visual base para campos de formulario del panel administrativo CMSNET (`packages/core/Admin/resources/assets/css/components/admin-input/admin-input.css`).
+
+## Base
+
+```html
+<input type="text" class="admin-input" placeholder="Nombre de ejemplo" aria-label="Nombre" />
+```
+
+### Texto
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminInputStories.Default} />
+</div>
+
+```html
+<label for="name" class="admin-input-label">Nombre</label>
+<input id="name" type="text" class="admin-input" placeholder="Nombre de ejemplo" />
+```
+
+### Correo electrónico
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminInputStories.Email} />
+</div>
+
+### Contraseña
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminInputStories.Password} />
+</div>
+
+El ejemplo utiliza el estilo compacto de los formularios; no cambia el diseño del login.
+
+### Búsqueda
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminInputStories.Search} />
+</div>
+
+Conserva la lupa y el espaciado del buscador del dashboard. No filtra datos ni realiza peticiones.
+
+### URL
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminInputStories.Url} />
+</div>
+
+## Estados
+
+Puedes comprobar el hover y el foco con el ratón o la tecla **Tab** en los ejemplos.
+
+### Deshabilitado
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminInputStories.Disabled} />
+</div>
+
+```html
+<input
+  type="text"
+  class="admin-input"
+  aria-label="Campo deshabilitado"
+  placeholder="No disponible"
+  disabled
+/>
+```
+
+### Solo lectura
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminInputStories.ReadOnly} />
+</div>
+
+## Clases
+
+| Uso              | Clase                 |
+| ---------------- | --------------------- |
+| Campo            | `.admin-input`        |
+| Etiqueta         | `.admin-input-label`  |
+| Buscador con SVG | `.admin-input-search` |
+
+Los selects y sus opciones se documentarán como un componente separado.

@@ -1,0 +1,69 @@
+@reference 'tailwindcss';
+
+/* NOTE: This stylesheet is imported only by the Storybook preview. */
+html.cmsnet-light {
+  color-scheme: light;
+}
+
+html.cmsnet-dark {
+  color-scheme: dark;
+}
+
+html body,
+html .sb-show-main,
+html .sbdocs-wrapper {
+  @apply bg-[var(--theme-50)] text-[color:var(--theme-900)];
+}
+
+/* NOTE: Match Markdown elements directly; native Docs does not always add sbdocs-* classes. */
+html
+  .sbdocs-content
+  :is(h1, h2, h3, h4, h5, h6):not(
+    :where(.sb-story *, .docs-story *, .sb-unstyled *, .ugm-welcome *)
+  ) {
+  @apply border-[color:var(--theme-300)] text-[color:var(--theme-900)];
+}
+
+html
+  .sbdocs-content
+  :is(p, li, blockquote, strong, em):not(
+    :where(.sb-story *, .docs-story *, .sb-unstyled *, .ugm-welcome *)
+  ) {
+  @apply text-[color:var(--theme-900)];
+}
+
+/* NOTE: Introductory pages use custom headings, not the native sbdocs typography classes. */
+.sbdocs-content .ugm-welcome :is(h1, h2, h3, h4, h5, h6) {
+  @apply text-[color:var(--theme-900)];
+}
+
+.sbdocs-content .ugm-welcome p:not(:where(.ugm-welcome-eyebrow)) {
+  @apply text-[color:var(--theme-900)];
+}
+
+html .sbdocs-content :where(.sbdocs-table th, .sbdocs-table td) {
+  @apply border-[color:var(--theme-300)] bg-[var(--theme-100)] text-[color:var(--theme-900)];
+}
+
+html .sbdocs-content :where(.sbdocs-code) {
+  @apply border-[color:var(--theme-300)] bg-[var(--theme-200)] text-[color:var(--theme-900)];
+}
+
+/* NOTE: Light-mode contrast adjustments never change the Admin application styles. */
+html.cmsnet-light .admin-button.primary {
+  @apply border-[color:var(--theme-950)] bg-[var(--theme-950)] text-[color:var(--theme-50)];
+}
+
+html.cmsnet-light .admin-button.secondary {
+  @apply border-[color:var(--theme-300)] bg-[var(--theme-100)] text-[color:var(--theme-900)];
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html.cmsnet-light .admin-button.primary:enabled:hover {
+    @apply border-neutral-800 bg-neutral-800;
+  }
+
+  html.cmsnet-light .admin-button.secondary:enabled:hover {
+    @apply border-[color:var(--theme-400)] bg-[var(--theme-200)];
+  }
+}

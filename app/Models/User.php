@@ -19,6 +19,18 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $table = 'tg_users';
+
+    /**
+     * Obtiene el nombre de la tabla aplicando el prefijo configurado en custom.db_table_fix.
+     */
+    public function getTable(): string
+    {
+        $prefix = (string) config('custom.db_table_fix', '');
+
+        return $prefix.'users';
+    }
+
     /**
      * Get the attributes that should be cast.
      *

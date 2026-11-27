@@ -1,21 +1,47 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Ugm\Admin\Http\Controllers\AdminPageController;
 
-/**
- * Admin - Admin Routes (/cmsnet)
- */
-Route::get('/', function (Request $request) {
-    if ($request->wantsJson()) {
-        return response()->json([
-            'platform' => 'UNGOLMAS Core',
-            'module' => 'Admin Panel (CMSNET)',
-            'status' => 'operational',
-            'prefix' => config('app.admin_url', 'cmsnet'),
-            'timestamp' => now()->toIso8601String(),
-        ]);
-    }
+/*
+|--------------------------------------------------------------------------
+| Public router
+|--------------------------------------------------------------------------
+|
+| Pages that do not require login to access.
+|
+*/
 
-    return view('admin::dashboard');
-})->name('admin.dashboard');
+Route::get('/iniciar-sesion', [AdminPageController::class, 'viewRenderPageAdmin'])
+    ->name('admin.login')
+    ->defaults('page', 'login')
+    ->defaults('private', false);
+
+Route::get('/recuperar-clave', [AdminPageController::class, 'viewRenderPageAdmin'])
+    ->name('admin.password.request')
+    ->defaults('page', 'forgot-password')
+    ->defaults('private', false);
+
+/*
+|--------------------------------------------------------------------------
+| Protected router
+|--------------------------------------------------------------------------
+|
+| Pages that require an active session to access.
+|
+*/
+
+Route::get('/', [AdminPageController::class, 'viewRenderPageAdmin'])
+    ->name('admin.dashboard')
+    ->defaults('page', 'dashboard')
+    ->defaults('private', true);
+
+Route::get('/cerrar-sesion', [AdminPageController::class, 'viewRenderPageAdmin'])
+    ->name('admin.logout')
+    ->defaults('page', 'logout')
+    ->defaults('private', true);
+
+Route::get('/package/core/admin', [AdminPageController::class, 'viewRenderPageAdmin'])
+    ->name('admin.package.core.admin')
+    ->defaults('page', 'package-core-admin')
+    ->defaults('private', true);

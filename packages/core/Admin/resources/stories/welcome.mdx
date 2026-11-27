@@ -1,0 +1,105 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import './welcome.css';
+
+<Meta title="Welcome" />
+
+<div className="ugm-welcome ugm-welcome-landing">
+  <header className="ugm-welcome-hero">
+    <div className="ugm-welcome-art" aria-hidden="true">
+      <svg className="ugm-doodle ugm-doodle-star" viewBox="0 0 100 100" fill="none"><path d="m50 12 5 26 24-15-14 25 25 7-27 6 13 24-24-14-7 26-5-27-25 13 15-24-26-7 27-5-14-24 25 14Z" fill="currentColor" stroke="var(--theme-900)" strokeWidth="5" strokeLinejoin="round" /></svg>
+      <svg className="ugm-doodle ugm-doodle-orbit" viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="32" stroke="var(--theme-900)" strokeWidth="18"/><circle cx="50" cy="50" r="32" stroke="currentColor" strokeWidth="9"/></svg>
+      <svg className="ugm-doodle ugm-doodle-heart" viewBox="0 0 100 100"><path d="M50 84 17 51C-5 26 30 4 50 28 70 4 105 26 83 51Z" fill="currentColor" stroke="var(--theme-900)" strokeWidth="6" strokeLinejoin="round"/></svg>
+      <svg className="ugm-doodle ugm-doodle-flower" viewBox="0 0 100 100" fill="currentColor" stroke="var(--theme-900)" strokeWidth="5"><circle cx="35" cy="28" r="19"/><circle cx="72" cy="37" r="19"/><circle cx="63" cy="74" r="19"/><circle cx="26" cy="65" r="19"/><circle cx="49" cy="51" r="12" fill="var(--theme-50)"/></svg>
+      <svg className="ugm-doodle ugm-doodle-spark" viewBox="0 0 100 100" fill="none"><path d="M50 10Q55 45 90 50 55 55 50 90 45 55 10 50 45 45 50 10Z" fill="currentColor" stroke="var(--theme-900)" strokeWidth="5"/></svg>
+      <svg className="ugm-doodle ugm-doodle-loop" viewBox="0 0 110 100" fill="none"><path d="M15 40C55 5 106 22 85 53S23 94 30 70 96 35 94 71" stroke="var(--theme-900)" strokeWidth="17" strokeLinecap="round"/><path d="M15 40C55 5 106 22 85 53S23 94 30 70 96 35 94 71" stroke="currentColor" strokeWidth="8" strokeLinecap="round"/></svg>
+    </div>
+    <p className="ugm-welcome-eyebrow">UNGOLMAS · Design system</p>
+    <h1 className="ugm-welcome-title">Sistema de diseño<br />de UNGOLMAS</h1>
+    <p className="ugm-welcome-intro">
+      Una misma identidad. Infinitas posibilidades.<br />Componentes, recursos y patrones para construir la experiencia UNGOLMAS.
+    </p>
+    <nav className="ugm-welcome-actions" aria-label="Explora el sistema de diseño">
+      <a className="ugm-welcome-cta" href="./?path=/docs/catalog--docs" target="_top">Explorar componentes <span aria-hidden="true">↗</span></a>
+      <a className="ugm-welcome-cta ugm-welcome-cta-secondary" href="./?path=/docs/getting-started--docs" target="_top">Primeros pasos <span aria-hidden="true">→</span></a>
+    </nav>
+  </header>
+
+<nav className="ugm-welcome-resources" aria-label="Secciones de bienvenida">
+  <a className="ugm-welcome-resource" href="#welcome-socios">
+    <span className="ugm-welcome-number" aria-hidden="true">01</span>
+    <h2>Socios</h2>
+    <p>Un espacio para presentar a las organizaciones que colaboran con el proyecto.</p>
+  </a>
+  <a className="ugm-welcome-resource" href="#welcome-nosotros">
+    <span className="ugm-welcome-number" aria-hidden="true">02</span>
+    <h2>Nosotros</h2>
+    <p>Conoce a nuestro equipo y a quienes contribuyen al proyecto.</p>
+  </a>
+  <a className="ugm-welcome-resource" href="#welcome-patrones">
+    <span className="ugm-welcome-number" aria-hidden="true">03</span>
+    <h2>Patrones</h2>
+    <p>Consulta cómo combinar los componentes en situaciones habituales de la interfaz.</p>
+  </a>
+</nav>
+
+<section id="welcome-socios" className="ugm-welcome-section" aria-labelledby="welcome-socios-title">
+  <p className="ugm-welcome-eyebrow">Socios</p>
+  <h2 id="welcome-socios-title" className="ugm-welcome-heading">
+    Construimos en colaboración
+  </h2>
+  <p className="ugm-welcome-description">
+    Este espacio está reservado para los socios del proyecto. Las organizaciones y sus enlaces se
+    publicarán cuando esa información esté confirmada.
+  </p>
+</section>
+
+  <section id="welcome-nosotros" className="ugm-welcome-section" aria-labelledby="welcome-nosotros-title">
+    <p className="ugm-welcome-eyebrow">Nosotros</p>
+    <h2 id="welcome-nosotros-title" className="ugm-welcome-heading">Nuestro equipo</h2>
+    <ul className="ugm-welcome-team" aria-label="Nuestro equipo">
+      <li className="ugm-welcome-person">
+        <span className="ugm-welcome-avatar" aria-hidden="true">DA</span>
+        <h3>Daniel Aguirre</h3>
+      </li>
+      <li className="ugm-welcome-person">
+        <span className="ugm-welcome-avatar" aria-hidden="true">JH</span>
+        <h3>Jhonatan Huamani</h3>
+      </li>
+      <li className="ugm-welcome-person">
+        <span className="ugm-welcome-avatar" aria-hidden="true">EM</span>
+        <h3>Emanuel Mazo</h3>
+      </li>
+    </ul>
+
+    <div className="ugm-welcome-contributors">
+      <h3 className="ugm-welcome-subheading">Nuestros colaboradores</h3>
+      <ul className="ugm-welcome-contributor-list" aria-label="Nuestros colaboradores">
+        <li>Daniel Aguirre</li>
+        <li>Jhonatan Huamani</li>
+        <li>Emanuel Mazo</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <section id="welcome-patrones" className="ugm-welcome-section" aria-labelledby="welcome-patrones-title">
+    <p className="ugm-welcome-eyebrow">Patrones</p>
+    <h2 id="welcome-patrones-title" className="ugm-welcome-heading">Componentes que trabajan juntos</h2>
+    <p className="ugm-welcome-description">
+      Estos son los usos de referencia del Admin. Consulta los componentes para revisar sus estilos
+      y estados.
+    </p>
+    <ul className="ugm-welcome-patterns">
+      <li>
+        <h3>Acciones de formulario</h3>
+        <p>Combina una acción principal, como Probar formulario, con una secundaria, como Restablecer.</p>
+        <a href="./?path=/docs/admin-components-adminbutton--docs" target="_top">Ver botones →</a>
+      </li>
+      <li>
+        <h3>Campos y búsqueda</h3>
+        <p>Utiliza etiquetas junto a los campos y un icono para identificar el buscador.</p>
+        <a href="./?path=/docs/admin-components-admininput--docs" target="_top">Ver inputs →</a>
+      </li>
+    </ul>
+  </section>
+</div>

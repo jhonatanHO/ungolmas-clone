@@ -21,7 +21,7 @@
     <img src="https://img.shields.io/badge/TypeScript-5.7-3178C6.svg?logo=typescript" alt="TypeScript 5.7 Badge">
 </a>
 <a href="https://tailwindcss.com/">
-    <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC.svg?logo=tailwindcss" alt="Tailwind CSS 3.4 Badge">
+    <img src="https://img.shields.io/badge/Tailwind_CSS-4.x-38B2AC.svg?logo=tailwindcss" alt="Tailwind CSS 4.x Badge">
 </a>
 <a href="https://vitejs.dev/">
     <img src="https://img.shields.io/badge/Vite-6.0-646CFF.svg?logo=vite" alt="Vite 6.0 Badge">
@@ -30,7 +30,7 @@
     <img src="https://img.shields.io/badge/pnpm-9.x-orange.svg?logo=pnpm" alt="pnpm Badge">
 </a>
 
-Web UNGOLMAS platform, developed with `PHP 8.4`, `Laravel 13`, `Apache 2.4`, `MySQL 8.0`, `Vue 3.5`, `TypeScript 5.7` and `Tailwind CSS`.
+Web UNGOLMAS platform, developed with `PHP 8.4`, `Laravel 13`, `Apache 2.4`, `MySQL 8.0`, `Vue 3.5`, `TypeScript 5.7` and `Tailwind CSS 4`.
 
 # UNGOLMAS Core (ugm-core)
 
@@ -38,7 +38,7 @@ Base técnica y arquitectónica de la plataforma modular de juegos y gamificaci�
 
 ---
 
-## 🏛 Arquitectura del Sistema (Laravel 13 + Monolito Modular)
+## Arquitectura del Sistema (Laravel 13 + Monolito Modular)
 
 UNGOLMAS Core adopta una arquitectura de **Monolito Modular con Puertos y Adaptadores (Arquitectura Hexagonal)**:
 
@@ -57,7 +57,7 @@ UNGOLMAS Core adopta una arquitectura de **Monolito Modular con Puertos y Adapta
   - `Ranking`: Cálculo y tablas de posiciones de torneos.
   - `Ads`: Gestión y renderizado de pautas publicitarias.
 
-### 📦 Estructura Canónica de cada Paquete
+### Estructura Canónica de cada Paquete
 
 Todos los paquetes modulares (`packages/core/*` e `packages/integrations/*`) siguen el estándar estricto de paquetes Laravel (Spatie / Bagisto):
 
@@ -80,21 +80,22 @@ packages/{core|integrations}/{PackageName}/
 
 > [!IMPORTANT]
 > **Convención Estricta de Nomenclatura de Directorios**:
+>
 > - **Raíz del Paquete y Recursos (`lowercase`)**: `config/`, `database/`, `resources/`, `routes/` y `src/` residen en minúsculas en la raíz del paquete. Asimismo, los subdirectorios dentro de `resources/` (`views/`, `lang/`, `assets/`) son estrictamente en minúsculas. Esto garantiza que las herramientas de análisis estático (PHPStan/Larastan) y los servidores de lenguaje (LSP) no confundan archivos de datos o plantillas con clases PHP.
 > - **Namespaces PSR-4 dentro de `src/` (`PascalCase`)**: Todo subdirectorio dentro de `src/` (`Contracts/`, `Http/Controllers/`, `Models/`, `Providers/`, etc.) inicia con mayúscula (**PascalCase**) porque mapea exactamente 1:1 con el Namespace PHP (`Ugm\{PackageName}\...`). En sistemas de archivos case-sensitive (Linux en Docker y servidores de producción como SiteGround), cualquier discrepancia de mayúsculas/minúsculas provocaría errores fatales de clase no encontrada (`Class not found`).
 
 ---
 
-## 📋 Tabla de Comandos Make
+## Tabla de Comandos Make
 
 El proyecto incluye un [Makefile](Makefile) que automatiza todo el ciclo de vida. **Antes de levantar o entrar en modo dev, el sistema verifica y libera automáticamente los puertos en conflicto (`8080` y `5173`)** mediante [`scripts/free-port.sh`](scripts/free-port.sh) para prevenir errores de asignación.
 
 | Comando             | Categoría               | ¿Qué hace?                                                                                                                                                                                    |
 | ------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `make setup`        | **Instalación Inicial** | **Pone en marcha el proyecto desde cero**: libera puertos, genera `.env`, instala dependencias Composer, levanta Docker, genera `APP_KEY`, corre migraciones de BD e instala paquetes `pnpm`. |
-| `make up`           | **Levantamiento**       | Libera preventivamente el puerto `8080` y levanta todos los contenedores Docker en segundo plano (`ugm_core_app`, `ugm_core_web`, `ugm_core_db`, `ugm_core_phpmyadmin`).                   |
+| `make up`           | **Levantamiento**       | Libera preventivamente el puerto `8080` y levanta todos los contenedores Docker en segundo plano (`ugm_core_app`, `ugm_core_web`, `ugm_core_db`, `ugm_core_phpmyadmin`).                      |
 | `make dev`          | **Modo Dev**            | Libera preventivamente el puerto `5173` e inicia el servidor de desarrollo Vite con Hot Module Replacement (HMR) para Vue 3 y Tailwind CSS.                                                   |
-| `make test`         | **Modo Test**           | Ejecuta la suite de pruebas unitarias y de integración de paquetes y cascarón utilizando Pest PHP (`pestphp/pest: ^3.7`).                                                                      |
+| `make test`         | **Modo Test**           | Ejecuta la suite de pruebas unitarias y de integración de paquetes y cascarón utilizando Pest PHP (`pestphp/pest: ^3.7`).                                                                     |
 | `make build`        | **Modo Build**          | Ejecuta la compilación completa de producción: compila los assets frontend con Vite (`pnpm build`) y reconstruye las imágenes Docker sin caché.                                               |
 | `make build-front`  | **Modo Build**          | Compila exclusivamente los assets de TypeScript, Vue 3 y Tailwind CSS con Vite para despliegue en producción.                                                                                 |
 | `make build-docker` | **Modo Build**          | Reconstruye las imágenes de Docker (`app`, `web`) desde cero sin usar caché.                                                                                                                  |
@@ -107,13 +108,13 @@ El proyecto incluye un [Makefile](Makefile) que automatiza todo el ciclo de vida
 | `make seed`         | **Base de Datos**       | Ejecuta los seeders de datos iniciales en la base de datos.                                                                                                                                   |
 | `make pint`         | **Calidad de Código**   | Formatea automáticamente el código PHP según las reglas de Laravel Pint.                                                                                                                      |
 | `make lint`         | **Calidad de Código**   | Verifica el estilo de código PHP en modo prueba sin alterar archivos.                                                                                                                         |
-| `make analyze`      | **Calidad de Código**   | Ejecuta análisis estático estricto en nivel 8 con PHPStan / Larastan (`larastan/larastan: ^3.0`).                                                                                              |
+| `make analyze`      | **Calidad de Código**   | Ejecuta análisis estático estricto en nivel 8 con PHPStan / Larastan (`larastan/larastan: ^3.0`).                                                                                             |
 | `make free-port`    | **Redes / DevOps**      | Corta / mata cualquier proceso o contenedor local que esté bloqueando el puerto web (`APP_PORT=8080`).                                                                                        |
 | `make free-vite`    | **Redes / DevOps**      | Corta / mata cualquier proceso o contenedor local que esté bloqueando el puerto de Vite (`5173`).                                                                                             |
 
 ---
 
-### 🪟 Compatibilidad con Windows: ¿Cómo instalar y usar `make`?
+### Compatibilidad con Windows: ¿Cómo instalar y usar `make`?
 
 En Windows, `make` **no viene instalado por defecto**, pero es totalmente compatible mediante cualquiera de las siguientes alternativas:
 
@@ -165,7 +166,7 @@ Si algún miembro del equipo prefiere no instalar `make`, puede ejecutar directa
 
 ---
 
-## 🚀 Guía Paso a Paso para Levantar el Proyecto
+## Guía Paso a Paso para Levantar el Proyecto
 
 ### A. Primera Instalación (Desde Cero)
 
@@ -206,6 +207,7 @@ make dev
 - **Panel Administrativo (CMSNET)**: [http://localhost:8080/cmsnet](http://localhost:8080/cmsnet)
 - **Panel phpMyAdmin**: [http://localhost:8081](http://localhost:8081) _(Servidor: `db` \| Usuario: `ugm_user` \| Clave: `ugm_secret`)_
 - **Servidor Vite (HMR Dev)**: [http://localhost:5173](http://localhost:5173)
+- **Storybook (Catálogo UI)**: [http://localhost:6006](http://localhost:6006)
 - **MySQL Directo**: `localhost:3306` _(Base de datos: `ungolmas_core` \| Usuario: `ugm_user`)_
 
 ---
@@ -243,7 +245,21 @@ make build-front
 
 ---
 
-## ⚙️ ¿Cómo opera Laravel 13 en este proyecto?
+### E. Catálogo de Componentes UI (Storybook)
+
+Para visualizar, desarrollar y documentar de forma aislada los componentes frontend de Vue 3 y Tailwind CSS:
+
+```bash
+# Levantar el servidor interactivo de Storybook en http://localhost:6006:
+pnpm storybook
+
+# Compilar el catálogo estático de Storybook para producción (storybook-static/):
+pnpm build-storybook
+```
+
+---
+
+## ¿Cómo opera Laravel 13 en este proyecto?
 
 1. **Bootstrap y Providers**:
    - `bootstrap/app.php` configura el pipeline de routing y middleware del cascarón.
@@ -258,7 +274,7 @@ make build-front
 
 ---
 
-## 🔒 Documentación Técnica y Directivas
+## Documentación Técnica y Directivas
 
 - [AGENTS.md](AGENTS.md): Reglas de arquitectura, tipado estricto PHP 8.4 y convenciones para agentes de IA.
 - [DESIGN.md](DESIGN.md): Tokens de diseño, interfaz visual y componentes UI.

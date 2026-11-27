@@ -1,0 +1,41 @@
+@reference 'tailwindcss';
+
+@layer components {
+  .admin-radio-group {
+    @apply min-w-0 border-0 p-0 text-[color:var(--theme-900)];
+  }
+
+  .admin-radio-group > legend {
+    @apply mb-2 text-sm font-semibold;
+  }
+
+  .admin-radio-options {
+    @apply flex flex-wrap gap-x-6 gap-y-3;
+  }
+
+  .admin-radio {
+    @apply inline-flex min-h-8 cursor-pointer items-center gap-2 text-sm text-[color:var(--theme-900)];
+  }
+
+  .admin-radio > input {
+    @apply m-0 size-4 shrink-0 cursor-pointer accent-[var(--theme-900)];
+  }
+
+  .admin-radio > input:focus-visible {
+    @apply outline-2 outline-solid outline-[color:var(--theme-700)] outline-offset-2;
+  }
+
+  .admin-radio:has(> input:disabled) {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  .admin-radio > input:disabled {
+    @apply cursor-not-allowed;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-radio > input:enabled:hover {
+    @apply accent-[var(--theme-700)];
+  }
+}

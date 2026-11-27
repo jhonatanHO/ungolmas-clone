@@ -1,0 +1,85 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import * as AdminButtonStories from './admin-button.stories';
+
+<Meta of={AdminButtonStories} />
+
+# AdminButton
+
+Componente visual base para botones del panel administrativo CMSNET (`packages/core/Admin/resources/assets/css/components/admin-button/admin-button.css`).
+
+## Base
+
+```html
+<button class="admin-button primary">Admin Button</button>
+```
+
+## Variantes
+
+### Primary
+
+En el tema oscuro: blanco sólido con texto oscuro, como **Probar formulario**.
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminButtonStories.Primary} />
+</div>
+
+```html
+<button type="button" class="admin-button primary">Probar formulario</button>
+```
+
+### Secondary
+
+En el tema oscuro: fondo oscuro, borde gris y texto claro, como **Restablecer**.
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminButtonStories.Secondary} />
+</div>
+
+```html
+<button type="button" class="admin-button secondary">Restablecer</button>
+```
+
+### Outline
+
+Fondo transparente y borde continuo, con las mismas medidas que las otras variantes.
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminButtonStories.Outline} />
+</div>
+
+```html
+<button type="button" class="admin-button outline">Ver detalles</button>
+```
+
+## Tamaños
+
+Los cuatro tamaños están disponibles para **Primary, Secondary y Outline**.
+
+<div className="bg-[var(--theme-100)] p-4">
+  <Story of={AdminButtonStories.Sizes} />
+</div>
+
+| Tamaño      | Modificador | Altura mínima | Texto |
+| ----------- | ----------- | ------------- | ----- |
+| Small       | `.sm`       | 28 px         | 12 px |
+| Default     | Sin clase   | 32 px         | 14 px |
+| Large       | `.lg`       | 40 px         | 14 px |
+| Extra Large | `.xl`       | 48 px         | 16 px |
+
+```html
+<button type="button" class="admin-button primary sm">Small</button>
+<button type="button" class="admin-button primary">Default</button>
+<button type="button" class="admin-button primary lg">Large</button>
+<button type="button" class="admin-button primary xl">Extra large</button>
+```
+
+Sustituye `primary` por `secondary` u `outline` para utilizar esos mismos tamaños en las otras variantes.
+
+## Clases Existentes
+
+| Tipo      | Clases                               |
+| --------- | ------------------------------------ |
+| Base      | `.admin-button`                      |
+| Variantes | `.primary`, `.secondary`, `.outline` |
+| Tamaños   | `.sm`, `.lg`, `.xl`                  |
+| Estados   | `:disabled`, `[disabled]`            |

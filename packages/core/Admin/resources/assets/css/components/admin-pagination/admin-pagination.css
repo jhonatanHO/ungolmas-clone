@@ -1,0 +1,40 @@
+@reference 'tailwindcss';
+
+@layer components {
+  .admin-pagination {
+    @apply flex flex-wrap items-center justify-between gap-3 border-t border-[color:var(--theme-300)] px-3 py-3 text-xs text-[color:var(--theme-500)];
+  }
+
+  .admin-pagination-summary {
+    @apply m-0 text-xs text-[color:var(--theme-700)];
+  }
+
+  .admin-pagination-actions {
+    @apply flex items-center gap-2;
+  }
+
+  .admin-pagination-action {
+    @apply inline-flex h-8 cursor-pointer items-center rounded-md border border-[color:var(--theme-400)] bg-transparent px-2.5 text-xs text-[color:var(--theme-700)] no-underline transition-[background-color,border-color] duration-150 ease-out;
+  }
+
+  .admin-pagination-action:focus-visible {
+    @apply outline-2 outline-solid outline-[color:var(--theme-700)] outline-offset-2;
+  }
+
+  .admin-pagination-action:disabled,
+  .admin-pagination-action[aria-disabled='true'] {
+    @apply cursor-not-allowed border-[color:var(--theme-300)] opacity-50;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-pagination-action:not(:disabled):not([aria-disabled='true']):hover {
+    @apply border-[color:var(--theme-500)] bg-[var(--theme-200)] no-underline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-pagination-action {
+    @apply transition-none;
+  }
+}

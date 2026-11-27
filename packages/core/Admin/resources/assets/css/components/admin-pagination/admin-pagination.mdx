@@ -1,0 +1,69 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import * as AdminPaginationStories from './admin-pagination.stories';
+
+<Meta of={AdminPaginationStories} />
+
+# AdminPagination
+
+Paginación del listado CMSNET (`packages/core/Admin/resources/assets/css/components/admin-pagination/admin-pagination.css`). Conserva el contador y las acciones Anterior/Siguiente del dashboard existente.
+
+## Base
+
+```html
+<nav class="admin-pagination" aria-label="Paginación de usuarios">
+  <p class="admin-pagination-summary" role="status" aria-live="polite">1–10 de 50 usuarios</p>
+  <div class="admin-pagination-actions">
+    <button type="button" class="admin-pagination-action" disabled>Anterior</button>
+    <button type="button" class="admin-pagination-action">Siguiente</button>
+  </div>
+</nav>
+```
+
+## Ejemplos
+
+### Página intermedia
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminPaginationStories.Default} />
+</div>
+
+### Primera página
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminPaginationStories.FirstPage} />
+</div>
+
+### Última página
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminPaginationStories.LastPage} />
+</div>
+
+### Sin registros
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminPaginationStories.Empty} />
+</div>
+
+## Uso y estados
+
+Las historias permiten avanzar y retroceder entre cinco páginas ficticias de diez elementos.
+No cargan registros ni modifican la URL: el estado es local a cada ejemplo Vue. El código de las
+historias muestra los bindings de Vue que conectan el contador y las acciones; el bloque Base
+muestra únicamente la estructura HTML.
+
+Deshabilita Anterior en la primera página, Siguiente en la última y ambos cuando no hay registros.
+El contador anuncia sus cambios. Tab muestra el foco y el hover cambia solo fondo y borde,
+sin invertir el texto. Hereda Light/Dark y respeta movimiento reducido.
+
+En navegación real pueden utilizarse enlaces con `rel="prev"` y `rel="next"`; una acción
+deshabilitada no debe conservar un enlace navegable. No se cambia la paginación de Laravel.
+
+## Clases
+
+| Uso                  | Clase                       |
+| -------------------- | --------------------------- |
+| Región de navegación | `.admin-pagination`         |
+| Contador             | `.admin-pagination-summary` |
+| Grupo de acciones    | `.admin-pagination-actions` |
+| Botón o enlace       | `.admin-pagination-action`  |

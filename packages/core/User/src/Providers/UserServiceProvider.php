@@ -6,6 +6,8 @@ namespace Ugm\User\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Ugm\User\Contracts\UserDirectory;
+use Ugm\User\Services\DatabaseUserDirectory;
 
 /**
  * Service Provider for UNGOLMAS User Module.
@@ -20,6 +22,8 @@ final class UserServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(UserDirectory::class, DatabaseUserDirectory::class);
+
         $this->mergeConfigFrom(
             __DIR__.'/../../config/config.php',
             'user'
@@ -58,7 +62,7 @@ final class UserServiceProvider extends ServiceProvider
 
         $adminRoutes = __DIR__.'/../../routes/admin.php';
         if (file_exists($adminRoutes)) {
-            $adminPrefix = config('app.admin_url', 'cmsnet');
+            $adminPrefix = (string) config('custom.admin_url', 'cmsnet');
             Route::prefix($adminPrefix)->middleware(['web'])->group($adminRoutes);
         }
     }

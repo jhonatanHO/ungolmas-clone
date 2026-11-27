@@ -1,0 +1,100 @@
+/**
+ * Admin Button
+ * Note: Base css (CMSNET Backoffice)
+ * -------------------
+ *
+ * - base (.admin-button)
+ * - variant (.primary, .secondary, .outline)
+ * - size (.sm, .lg, .xl)
+ * - event (:hover, :focus)
+ * - disabled (:disabled, [disabled])
+ *
+ */
+@layer components {
+  /* Base */
+  .admin-button {
+    @apply relative inline-flex cursor-pointer select-none items-center justify-center gap-3 whitespace-nowrap rounded-lg border-2 px-4 py-2.5 text-sm font-semibold text-white transition-all;
+  }
+
+  /* Variant */
+  .admin-button.primary,
+  .admin-button.secondary,
+  .admin-button.outline {
+    /* NOTE: Medidas compartidas por las variantes del botón de Admin. */
+    @apply min-h-8 rounded-md border px-2.5 py-[5px] text-sm font-semibold leading-[1.4] transition-[color,background-color,border-color,box-shadow] duration-150 ease-out;
+  }
+
+  .admin-button.primary {
+    /* NOTE: Blanco sólido con texto negro, independiente del fondo de Docs. */
+    @apply border-white bg-white text-black;
+  }
+
+  .admin-button.primary:focus-visible,
+  .admin-button.secondary:focus-visible,
+  .admin-button.outline:focus-visible {
+    @apply outline-2 outline-solid outline-[color:var(--theme-700)] outline-offset-2;
+  }
+
+  .admin-button.primary:disabled,
+  .admin-button.secondary:disabled,
+  .admin-button.outline:disabled {
+    @apply pointer-events-auto cursor-not-allowed opacity-50;
+  }
+
+  .admin-button.secondary {
+    /* NOTE: Fondo oscuro, borde gris y texto blanco, como Restablecer. */
+    @apply border-neutral-600 bg-neutral-950 text-white;
+  }
+
+  .admin-button.outline {
+    @apply border-solid border-[color:var(--theme-500)] bg-transparent text-[color:var(--theme-700)];
+  }
+
+  /* Size */
+  .admin-button.sm {
+    @apply min-h-7 px-2 py-1 text-xs;
+  }
+
+  .admin-button.lg {
+    @apply min-h-10 px-4 py-2 text-sm;
+  }
+
+  .admin-button.xl {
+    @apply min-h-12 px-5 py-2.5 text-base;
+  }
+
+  /* Event */
+  .admin-button:hover {
+  }
+
+  /* Disabled */
+  .admin-button:disabled,
+  .admin-button[disabled] {
+    pointer-events: none;
+    transform: scale(1);
+    scale: 1;
+    @apply cursor-not-allowed opacity-70 shadow-none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-button.outline:enabled:hover {
+    @apply border-[color:var(--theme-700)] bg-[var(--theme-200)];
+  }
+
+  .admin-button.secondary:enabled:hover {
+    @apply border-neutral-500 bg-neutral-900;
+  }
+
+  .admin-button.primary:enabled:hover {
+    @apply border-neutral-200 bg-neutral-100;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-button.primary,
+  .admin-button.secondary,
+  .admin-button.outline {
+    @apply transition-none;
+  }
+}

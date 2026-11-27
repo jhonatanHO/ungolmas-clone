@@ -1,17 +1,84 @@
+@import 'tailwindcss';
+
 /* Temas independientes modulares CMSNET */
-@import "./themes/cmsnet-light.css";
-@import "./themes/cmsnet-dark.css";
-@import "./themes/cmsnet-midnight.css";
+@import './themes/cmsnet-light.css';
+@import './themes/cmsnet-dark.css';
+@import './themes/cmsnet-midnight.css';
 
-@config "../../../tailwind.config.js";
+@import './components/admin-button/admin-button.css';
+@import './components/admin-input/admin-input.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@custom-variant dark (&:where(.cmsnet-dark, .cmsnet-dark *, [data-theme="cmsnet-dark"], [data-theme="cmsnet-dark"] *, .cmsnet-midnight, .cmsnet-midnight *, [data-theme="cmsnet-midnight"], [data-theme="cmsnet-midnight"] *));
+@custom-variant cmsnet-dark (&:where(.cmsnet-dark, .cmsnet-dark *, [data-theme="cmsnet-dark"], [data-theme="cmsnet-dark"] *));
+@custom-variant cmsnet-midnight (&:where(.cmsnet-midnight, .cmsnet-midnight *, [data-theme="cmsnet-midnight"], [data-theme="cmsnet-midnight"] *));
+@custom-variant cmsnet-light (&:where(.cmsnet-light, .cmsnet-light *, [data-theme="cmsnet-light"], [data-theme="cmsnet-light"] *));
+
+@theme {
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'Geist', 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --tracking-tight: -0.02em;
+
+  /* Paleta Adaptativa Dinámica (theme-*) */
+  --color-theme-50: var(--theme-50);
+  --color-theme-100: var(--theme-100);
+  --color-theme-200: var(--theme-200);
+  --color-theme-300: var(--theme-300);
+  --color-theme-400: var(--theme-400);
+  --color-theme-500: var(--theme-500);
+  --color-theme-700: var(--theme-700);
+  --color-theme-900: var(--theme-900);
+  --color-theme-950: var(--theme-950);
+}
+
+@layer utilities {
+  /* NOTE: Interacciones limitadas al dashboard; autenticación conserva sus estilos independientes. */
+  [data-admin-dashboard] :where(button:enabled, a[href], summary) {
+    cursor: pointer;
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+
+  [data-admin-dashboard] :where(button:enabled, a[href], summary):focus-visible {
+    outline: 2px solid var(--theme-500);
+    outline-offset: 2px;
+  }
+
+  [data-admin-dashboard] :where(input, select) {
+    transition:
+      border-color 150ms ease-out,
+      box-shadow 150ms ease-out;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    [data-admin-dashboard]
+      :where(
+        main button:enabled:not([aria-pressed='true']),
+        #mobile-menu-btn,
+        #mobile-close-btn,
+        [data-theme-btn]:not([aria-pressed='true'])
+      ):hover {
+      background-color: var(--theme-200);
+      color: var(--theme-900);
+    }
+
+    [data-admin-dashboard] :where(main button:enabled, main input, main select):hover {
+      border-color: var(--theme-500);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-admin-dashboard],
+  [data-admin-dashboard] :where(button, a, summary, input, select, tbody tr, #sidebar) {
+    transition-duration: 0s;
+  }
+}
 
 /* Base resets & typography */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Geist", "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   letter-spacing: -0.011em;
   background-color: var(--theme-50);
   color: var(--theme-900);
@@ -29,9 +96,270 @@ body {
   background: rgba(156, 163, 175, 0.3);
   border-radius: 9999px;
 }
-:where(.cmsnet-dark, [data-theme="cmsnet-dark"], .cmsnet-midnight, [data-theme="cmsnet-midnight"]) ::-webkit-scrollbar-thumb {
+:where(.cmsnet-dark, [data-theme='cmsnet-dark'], .cmsnet-midnight, [data-theme='cmsnet-midnight'])
+  ::-webkit-scrollbar-thumb {
   background: rgba(75, 85, 99, 0.35);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(156, 163, 175, 0.6);
+}
+
+/* NOTE: Controles compactos exclusivos de las vistas demo; no alteran autenticación ni navegación. */
+[data-admin-dashboard] .admin-demo-form {
+  --admin-form-error: light-dark(#b91c1c, #fca5a5);
+  max-width: 42rem;
+  border: 1px solid var(--theme-300);
+  border-radius: 8px;
+  background: var(--theme-100);
+  color: var(--theme-900);
+  color-scheme: light;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+:where(.cmsnet-dark, .cmsnet-midnight) [data-admin-dashboard] .admin-demo-form {
+  color-scheme: dark;
+}
+
+.admin-demo-form .admin-form-heading {
+  padding: 16px;
+  border-bottom: 1px solid var(--theme-300);
+}
+
+.admin-demo-form :where(h2, label, legend) {
+  font-weight: 600;
+}
+
+.admin-demo-form .admin-form-heading p,
+.admin-demo-form .admin-form-help {
+  margin-top: 6px;
+  color: var(--theme-500);
+  font-size: 12px;
+}
+
+.admin-demo-form .admin-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.admin-demo-form .admin-form-field > label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.admin-demo-form :where(input:not([type='checkbox'], [type='radio']), select, textarea) {
+  display: block;
+  width: 100%;
+  min-height: 32px;
+  padding: 5px 8px;
+  border: 1px solid var(--theme-400);
+  border-radius: 6px;
+  background: var(--theme-100);
+  color: var(--theme-900);
+  font: inherit;
+  transition:
+    border-color 150ms ease-out,
+    box-shadow 150ms ease-out;
+}
+
+.admin-demo-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.admin-demo-form input::placeholder,
+.admin-demo-form textarea::placeholder {
+  color: var(--theme-500);
+  opacity: 1;
+}
+
+.admin-demo-form .admin-form-select {
+  position: relative;
+}
+
+.admin-demo-form select {
+  appearance: none;
+  padding-right: 32px;
+}
+
+.admin-demo-form option {
+  background: var(--theme-100);
+  color: var(--theme-900);
+}
+
+.admin-demo-form .admin-form-select svg {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 16px;
+  height: 16px;
+  color: var(--theme-500);
+  pointer-events: none;
+}
+
+.admin-demo-form :where(input[type='checkbox'], input[type='radio']) {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--theme-900);
+  cursor: pointer;
+}
+
+.admin-demo-form .admin-form-group {
+  min-width: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--theme-300);
+}
+
+.admin-demo-form legend {
+  padding-right: 8px;
+  color: var(--theme-500);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-demo-form .admin-form-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+.admin-demo-form .admin-form-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  cursor: pointer;
+}
+
+.admin-demo-form .admin-form-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-demo-form .admin-form-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 32px;
+  cursor: pointer;
+}
+
+.admin-demo-form input[role='switch'] {
+  appearance: none;
+  position: relative;
+  width: 40px;
+  height: 24px;
+  border: 1px solid var(--theme-400);
+  border-radius: 999px;
+  background: var(--theme-400);
+  transition: background-color 150ms ease-out;
+}
+
+.admin-demo-form input[role='switch']::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--theme-900);
+  transition: transform 150ms ease-out;
+}
+
+.admin-demo-form input[role='switch']:checked {
+  border-color: var(--theme-900);
+  background: var(--theme-900);
+}
+
+.admin-demo-form input[role='switch']:checked::before {
+  background: var(--theme-50);
+  transform: translateX(16px);
+}
+
+.admin-demo-form .admin-form-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px;
+  border-top: 1px solid var(--theme-300);
+}
+
+.admin-demo-form [role='status'] {
+  flex: 1 1 100%;
+  color: var(--theme-700);
+  font-size: 12px;
+}
+
+.admin-demo-form [role='status']:empty {
+  display: none;
+}
+
+.admin-demo-form .admin-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.admin-demo-form .admin-form-button {
+  min-height: 32px;
+  padding: 5px 10px;
+  border: 1px solid var(--theme-400);
+  border-radius: 6px;
+  background: var(--theme-100);
+  color: var(--theme-900);
+  font-weight: 600;
+}
+
+.admin-demo-form .admin-form-primary {
+  border-color: var(--theme-900);
+  background: var(--theme-900);
+  color: var(--theme-50);
+}
+
+[data-admin-dashboard] .admin-demo-form :where(input, select, textarea, button):focus-visible {
+  outline: 2px solid var(--theme-700);
+  outline-offset: 2px;
+}
+
+.admin-demo-form :where(input, textarea):user-invalid {
+  border-color: var(--admin-form-error);
+}
+
+.admin-demo-form :disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-demo-form :where(input, select, textarea):enabled:hover {
+    border-color: var(--theme-700);
+  }
+
+  .admin-demo-form .admin-form-button:hover {
+    border-color: var(--theme-700);
+    background: var(--theme-200);
+    color: var(--theme-900);
+  }
+
+  .admin-demo-form .admin-form-primary:hover {
+    background: var(--theme-700);
+    color: var(--theme-50);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-demo-form :where(input, select, textarea),
+  .admin-demo-form input[role='switch']::before {
+    transition: none;
+  }
 }

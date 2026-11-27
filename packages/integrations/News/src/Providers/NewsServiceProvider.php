@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Ugm\News\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Ugm\News\Console\Commands\CheckWordPressConnectionCommand;
+use Ugm\News\Contracts\NewsRepository;
+use Ugm\News\Services\WordPressService;
 
 /**
- * Service Provider for UNGOLMAS News Module.
- *
- * Handles dependency injection, configuration merging, migration loading,
- * view publishing, and route registration for this modular package.
+ * Registers the News package configuration, views, migrations, and routes.
  */
 final class NewsServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,8 @@ final class NewsServiceProvider extends ServiceProvider
             __DIR__.'/../../config/config.php',
             'news'
         );
+
+        $this->app->bind(NewsRepository::class, WordPressService::class);
     }
 
     /**
@@ -31,13 +34,21 @@ final class NewsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Load database migrations
+        if (! config('news.enabled', true)) {
+            return;
+        }
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([CheckWordPressConnectionCommand::class]);
+        }
+
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
-        // Load package views
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'news');
 
-        // Register package routes
+        Blade::componentNamespace('Ugm\\News\\View\\Components', 'news');
+        Blade::anonymousComponentPath(__DIR__.'/../../resources/views/components', 'news');
+
         $this->registerRoutes();
     }
 
@@ -46,6 +57,10 @@ final class NewsServiceProvider extends ServiceProvider
      */
     protected function registerRoutes(): void
     {
+        if ($this->app->routesAreCached()) {
+            return;
+        }
+
         $webRoutes = __DIR__.'/../../routes/web.php';
         if (file_exists($webRoutes)) {
             Route::middleware('web')->group($webRoutes);
@@ -58,7 +73,7 @@ final class NewsServiceProvider extends ServiceProvider
 
         $adminRoutes = __DIR__.'/../../routes/admin.php';
         if (file_exists($adminRoutes)) {
-            $adminPrefix = config('app.admin_url', 'cmsnet');
+            $adminPrefix = (string) config('custom.admin_url', 'cmsnet');
             Route::prefix($adminPrefix)->middleware(['web'])->group($adminRoutes);
         }
     }

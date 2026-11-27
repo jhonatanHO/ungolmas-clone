@@ -1,0 +1,56 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import * as AdminCheckboxStories from './admin-checkbox.stories';
+
+<Meta of={AdminCheckboxStories} />
+
+# AdminCheckbox
+
+Casilla de selección del panel CMSNET (`packages/core/Admin/resources/assets/css/components/admin-checkbox/admin-checkbox.css`). Reproduce el control nativo de 16 px y la etiqueta del formulario existente.
+
+## Base
+
+```html
+<label class="admin-checkbox">
+  <input type="checkbox" name="receive_updates" />
+  <span>Recibir novedades</span>
+</label>
+```
+
+## Ejemplos
+
+### Desmarcado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminCheckboxStories.Default} />
+</div>
+
+### Marcado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminCheckboxStories.Checked} />
+</div>
+
+### Deshabilitado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminCheckboxStories.Disabled} />
+</div>
+
+### Marcado y deshabilitado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminCheckboxStories.CheckedDisabled} />
+</div>
+
+## Uso y estados
+
+Para opciones independientes. La etiqueta completa permite alternar la selección.
+Utiliza Tab y Espacio para probar el control. Hereda Light/Dark y usa el acento neutral del tema;
+el hover cambia suavemente ese acento, sin invertir los colores de la etiqueta.
+La selección solo vive en el ejemplo y no se guarda.
+
+## Clases
+
+| Uso                         | Clase             |
+| --------------------------- | ----------------- |
+| Etiqueta y control asociado | `.admin-checkbox` |

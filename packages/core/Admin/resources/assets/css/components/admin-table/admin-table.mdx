@@ -1,0 +1,74 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import * as AdminTableStories from './admin-table.stories';
+
+<Meta of={AdminTableStories} />
+
+# AdminTable
+
+Tabla de solo lectura del dashboard CMSNET (`packages/core/Admin/resources/assets/css/components/admin-table/admin-table.css`). Conserva las seis columnas, la cabecera compacta y las filas del listado existente.
+
+## Base
+
+```html
+<div class="admin-table-wrapper" role="region" aria-label="Listado de ejemplo" tabindex="0">
+  <table class="admin-table">
+    <caption class="sr-only">
+      Listado de ejemplo
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Usuario</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>jugador.demo</td>
+        <td>Activo</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+## Ejemplos
+
+### Listado
+
+<div className="sb-unstyled">
+  <Story of={AdminTableStories.Default} />
+</div>
+
+### Sin registros
+
+<div className="sb-unstyled">
+  <Story of={AdminTableStories.Empty} />
+</div>
+
+### Contenido extenso
+
+<div className="sb-unstyled">
+  <Story of={AdminTableStories.LongContent} />
+</div>
+
+## Uso y estados
+
+El contenedor permite desplazamiento horizontal en pantallas pequeñas y recibe foco para usar
+el teclado. La tabla conserva un ancho mínimo de 900 px; los campos extensos se truncan visualmente.
+El hover de fila solo añade un fondo sutil, sin cambiar el texto. No hay ordenación ni selección de filas.
+Todos los registros son ficticios y no se consulta la base de datos.
+
+El ejemplo de listado utiliza también `.admin-badge` para el estado. Hereda Light/Dark y respeta
+movimiento reducido. AdminPagination se documenta por separado.
+
+## Clases
+
+| Uso                         | Clase                   |
+| --------------------------- | ----------------------- |
+| Contenedor desplazable      | `.admin-table-wrapper`  |
+| Tabla                       | `.admin-table`          |
+| Usuario destacado           | `.admin-table-user`     |
+| Información secundaria      | `.admin-table-meta`     |
+| Contenido extenso           | `.admin-table-truncate` |
+| Fecha alineada a la derecha | `.admin-table-date`     |
+| Celda sin registros         | `.admin-table-empty`    |

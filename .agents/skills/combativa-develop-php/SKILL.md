@@ -46,8 +46,8 @@ Todo elemento de código PHP debe adherirse obligatoriamente a esta tabla:
     ) {}
     ```
 - **Clases e Inmutabilidad**:
-  - Usar clases `readonly` o propiedades `readonly` para DTOs, Eventos y VOs.
-  - Usar `final` en clases que no están diseñadas para ser heredadas (ej. `final class WebAppServiceProvider`).
+  - Usar propiedades `readonly` en la promoción del constructor (`private readonly UserDirectory $directory`) para servicios y controladores (especialmente cuando la clase emplea Traits, garantizando compatibilidad con el parser AST de Phpactor).
+  - Usar `final` en clases que no están diseñadas para ser heredadas (ej. `final class AdminController`, `final class WebAppServiceProvider`).
 - **Estructuras Modernas**:
   - Preferir expresiones `match` sobre sentencias `switch` largas.
   - Usar Enums respaldados (`BackedEnum`) con tipos `string` o `int`.
@@ -72,3 +72,13 @@ Todo elemento de código PHP debe adherirse obligatoriamente a esta tabla:
 - **Desacoplamiento Dirigido por Eventos**:
   - Paquetes satélites y dinámicas (`Game`, `Store`) disparan eventos (ej. `GameFinished`, `StoreItemPurchased`).
   - `Gamification` escucha mediante listeners dedicados; nunca acoplar llamadas sincrónicas directas para alteración de balances.
+
+---
+
+## 5. Documentación PHPDoc y Block Comments (100% English & Concise)
+
+- **Idioma Obligatorio**: Todos los bloques PHPDoc (`/** ... */`), encabezados de sección (`/* ... */`) y comentarios de línea (`// ...`) en código PHP (`src/`, `routes/`, `config/`, `database/`) deben escribirse **100% en inglés**.
+- **Descripciones Cortas**: Redactar resúmenes directos de **1 sola oración** sin bloques extensos.
+- **Encabezados de Sección Limpios (Sin Bordes ASCII)**:
+  - En archivos de rutas (`routes/*.php`) y clases PHP, utilizar encabezados cortos en inglés como `/* PUBLIC ROUTES */` o `/* PROTECTED ROUTES */`.
+  - Queda prohibido el uso de divisores largos con bordes ASCII (`|---...---|` o `// ===...===`).

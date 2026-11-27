@@ -1,9 +1,8 @@
 import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
+import laravel, { refreshPaths } from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'path';
-import tailwindcss from 'tailwindcss';
-import autoprefixer from 'autoprefixer';
 
 export default defineConfig({
   plugins: [
@@ -15,9 +14,17 @@ export default defineConfig({
         'packages/core/Admin/resources/assets/js/app.ts',
         'packages/core/WebApp/resources/assets/css/webapp.css',
         'packages/core/WebApp/resources/assets/js/app.ts',
+        'packages/integrations/News/resources/assets/css/app.css',
+        'packages/integrations/News/resources/assets/js/app.ts',
       ],
-      refresh: true,
+      refresh: [
+        ...refreshPaths,
+        'packages/integrations/News/resources/views/**',
+        'packages/integrations/News/src/View/Components/**',
+        'packages/integrations/News/routes/**',
+      ],
     }),
+    tailwindcss(),
     vue({
       template: {
         transformAssetUrls: {
@@ -27,13 +34,9 @@ export default defineConfig({
       },
     }),
   ],
-  css: {
-    postcss: {
-      plugins: [tailwindcss(), autoprefixer()],
-    },
-  },
   resolve: {
     alias: {
+      vue: 'vue/dist/vue.esm-bundler.js',
       '@': resolve(__dirname, 'resources'),
       '@ugm-core': resolve(__dirname, 'packages/core'),
       '@ugm-integrations': resolve(__dirname, 'packages/integrations'),

@@ -1,0 +1,67 @@
+@reference 'tailwindcss';
+
+@layer components {
+  .admin-table-wrapper {
+    @apply relative overflow-x-auto rounded-lg border border-[color:var(--theme-300)] bg-[var(--theme-100)] shadow-xs;
+  }
+
+  .admin-table-wrapper:focus-visible {
+    @apply outline-2 outline-solid outline-[color:var(--theme-700)] outline-offset-2;
+  }
+
+  .admin-table {
+    @apply w-full min-w-[900px] border-collapse text-left text-sm text-[color:var(--theme-700)];
+  }
+
+  .admin-table thead tr {
+    @apply h-8 border-b border-[color:var(--theme-300)] bg-[color:var(--theme-200)]/60 text-xs text-[color:var(--theme-500)];
+  }
+
+  .admin-table th {
+    @apply px-3 font-medium;
+  }
+
+  .admin-table tbody tr {
+    @apply h-10 border-b border-[color:var(--theme-300)] transition-colors duration-150 ease-out;
+  }
+
+  .admin-table tbody tr:last-child {
+    @apply border-b-0;
+  }
+
+  .admin-table td {
+    @apply px-3 py-1.5 align-middle;
+  }
+
+  .admin-table-user {
+    @apply block whitespace-nowrap font-medium text-[color:var(--theme-900)];
+  }
+
+  .admin-table-meta {
+    @apply text-xs text-[color:var(--theme-500)];
+  }
+
+  .admin-table-truncate {
+    @apply max-w-64 truncate;
+  }
+
+  .admin-table .admin-table-date {
+    @apply whitespace-nowrap text-right text-[color:var(--theme-500)];
+  }
+
+  .admin-table .admin-table-empty {
+    @apply py-10 text-center text-[color:var(--theme-500)];
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-table tbody tr:not(:has(.admin-table-empty)):hover {
+    @apply bg-[color:var(--theme-200)]/60;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-table tbody tr {
+    @apply transition-none;
+  }
+}

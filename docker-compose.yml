@@ -40,7 +40,7 @@ services:
     container_name: ugm_core_db
     restart: unless-stopped
     ports:
-      - '3306:3306'
+      - '${DB_PORT:-3306}:3306'
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_secret}
       MYSQL_DATABASE: ${DB_DATABASE:-ungolmas_core}
@@ -72,7 +72,7 @@ services:
     container_name: ugm_core_phpmyadmin
     restart: unless-stopped
     ports:
-      - '8081:80'
+      - '${PMA_PORT:-8081}:80'
     environment:
       PMA_HOST: db
       PMA_PORT: 3306

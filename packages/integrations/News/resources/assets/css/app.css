@@ -1,1 +1,58 @@
-/* UNGOLMAS News Module Styles */
+@import 'tailwindcss' source(none);
+
+@source '../../views';
+@source '../../../src/View';
+@source '../js';
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/roboto-variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Oswald';
+  src: url('../fonts/oswald-variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+}
+
+@theme {
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1300px;
+  --color-news-base: #000000;
+  --color-news-panel: #262626;
+  --color-news-border: #333333;
+  --color-news-muted: #737373;
+  --color-news-body: #a3a3a3;
+  --color-news-accent: #f0ca2c;
+  --color-news-headline: #fdf1b3;
+  --color-news-divider: #66666685;
+  --color-news-facebook: #1877f2;
+  --color-news-whatsapp: #25d366;
+  --color-news-telegram: #0088cc;
+  --color-news-instagram-start: #fb724b;
+  --color-news-instagram-middle: #ff0069;
+  --color-news-instagram-end: #d300c5;
+  --background-image-news-instagram: linear-gradient(
+    to right,
+    var(--color-news-instagram-start),
+    var(--color-news-instagram-middle),
+    var(--color-news-instagram-end)
+  );
+  --color-news-gradient-start: #050403;
+  --color-news-gradient-middle: #030202;
+  --background-image-news-page: linear-gradient(
+    0deg,
+    var(--color-news-gradient-start) 0%,
+    var(--color-news-gradient-middle) 50%,
+    var(--color-news-base) 100%
+  );
+  --font-news-copy: 'Roboto', sans-serif;
+  --font-news-display: 'Oswald', sans-serif;
+}

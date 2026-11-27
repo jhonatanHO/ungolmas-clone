@@ -1,0 +1,61 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import * as AdminTextareaStories from './admin-textarea.stories';
+
+<Meta of={AdminTextareaStories} />
+
+# AdminTextarea
+
+Campo multilínea del panel CMSNET (`packages/core/Admin/resources/assets/css/components/admin-textarea/admin-textarea.css`). Conserva la altura mínima de 80 px y el redimensionado vertical del formulario existente.
+
+## Base
+
+```html
+<label for="description" class="admin-textarea-label">Descripción</label>
+<textarea
+  id="description"
+  class="admin-textarea"
+  name="description"
+  rows="3"
+  maxlength="1000"
+  placeholder="Escribe una descripción..."
+></textarea>
+```
+
+## Ejemplos
+
+### Predeterminado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminTextareaStories.Default} />
+</div>
+
+### Con contenido
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminTextareaStories.WithValue} />
+</div>
+
+### Deshabilitado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminTextareaStories.Disabled} />
+</div>
+
+### Solo lectura
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminTextareaStories.ReadOnly} />
+</div>
+
+## Uso y estados
+
+Hereda Light/Dark. El hover cambia únicamente el borde y Tab muestra el foco.
+`readonly` conserva el acceso al contenido; `disabled` impide editar y recibir foco.
+Los textos son ficticios y no se guardan. No modifica AdminInput ni los formularios de la aplicación.
+
+## Clases
+
+| Uso              | Clase                   |
+| ---------------- | ----------------------- |
+| Etiqueta         | `.admin-textarea-label` |
+| Campo multilínea | `.admin-textarea`       |

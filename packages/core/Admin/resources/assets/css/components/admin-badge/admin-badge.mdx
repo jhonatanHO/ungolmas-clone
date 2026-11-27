@@ -1,0 +1,46 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import * as AdminBadgeStories from './admin-badge.stories';
+
+<Meta of={AdminBadgeStories} />
+
+# AdminBadge
+
+Etiqueta de estado del listado de CMSNET (`packages/core/Admin/resources/assets/css/components/admin-badge/admin-badge.css`). Conserva el fondo neutral, borde continuo y forma redondeada del listado existente.
+
+## Base
+
+```html
+<span class="admin-badge">Activo</span>
+```
+
+## Ejemplos
+
+### Predeterminado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminBadgeStories.Default} />
+</div>
+
+### Estados del listado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminBadgeStories.States} />
+</div>
+
+### Texto extenso
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminBadgeStories.LongLabel} />
+</div>
+
+## Uso
+
+Es informativo: no recibe foco ni tiene hover de botón. El texto identifica el estado sin depender
+del color. Hereda Light/Dark y no introduce colores de éxito o error que no existen en el listado.
+No utiliza `role="status"` para etiquetas estáticas.
+
+## Clases
+
+| Uso                | Clase          |
+| ------------------ | -------------- |
+| Etiqueta de estado | `.admin-badge` |

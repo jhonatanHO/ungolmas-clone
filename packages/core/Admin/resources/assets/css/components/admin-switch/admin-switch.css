@@ -1,0 +1,53 @@
+@reference 'tailwindcss';
+
+@layer components {
+  .admin-switch {
+    @apply flex min-h-8 cursor-pointer items-center justify-between gap-4 text-sm text-[color:var(--theme-900)];
+  }
+
+  .admin-switch > input {
+    @apply relative m-0 h-6 w-10 shrink-0 cursor-pointer appearance-none rounded-full border border-[color:var(--theme-400)] bg-[var(--theme-400)] transition-[background-color,border-color] duration-150 ease-out;
+  }
+
+  .admin-switch > input::before {
+    content: '';
+    @apply absolute left-[3px] top-[3px] size-4 rounded-full bg-[var(--theme-900)] transition-transform duration-150 ease-out;
+  }
+
+  .admin-switch > input:checked {
+    @apply border-[color:var(--theme-900)] bg-[var(--theme-900)];
+  }
+
+  .admin-switch > input:checked::before {
+    @apply translate-x-4 bg-[var(--theme-50)];
+  }
+
+  .admin-switch > input:focus-visible {
+    @apply outline-2 outline-solid outline-[color:var(--theme-700)] outline-offset-2;
+  }
+
+  .admin-switch:has(> input:disabled) {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  .admin-switch > input:disabled {
+    @apply cursor-not-allowed;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-switch > input:enabled:hover {
+    @apply border-[color:var(--theme-500)] bg-[var(--theme-500)];
+  }
+
+  .admin-switch > input:checked:enabled:hover {
+    @apply border-[color:var(--theme-700)] bg-[var(--theme-700)];
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-switch > input,
+  .admin-switch > input::before {
+    @apply transition-none;
+  }
+}

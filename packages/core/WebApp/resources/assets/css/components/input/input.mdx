@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as InputStories from './input.stories';
+
+<Meta of={InputStories} />
+
+# Input
+
+Componente visual base para campos de formulario de la web pública (`packages/core/WebApp/resources/assets/css/components/input/input.css`).
+
+## Base
+
+```html
+<input type="text" class="input" placeholder="Escribe aquí..." />
+```
+
+## Estados
+
+### Disabled
+
+<input type="text" class="input" placeholder="Campo deshabilitado" disabled />
+
+```html
+<input type="text" class="input" placeholder="Campo deshabilitado" disabled />
+```
+
+## Clases Existentes
+
+| Tipo    | Clases                    |
+| ------- | ------------------------- |
+| Base    | `.input`                  |
+| Estados | `:disabled`, `[disabled]` |

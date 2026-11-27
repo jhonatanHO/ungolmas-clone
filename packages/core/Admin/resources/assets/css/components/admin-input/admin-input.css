@@ -1,0 +1,61 @@
+/**
+ * Reproduces the existing Admin form inputs in the component catalog.
+ */
+@layer components {
+  /* BASE */
+  .admin-input {
+    @apply block min-h-8 w-full rounded-md border border-[color:var(--theme-400)] bg-[var(--theme-100)] px-2 py-[5px] text-sm font-normal leading-[1.4] text-[color:var(--theme-900)] transition-[border-color,box-shadow] duration-150 ease-out;
+  }
+
+  .admin-input::placeholder {
+    @apply text-[color:var(--theme-500)] opacity-100;
+  }
+
+  .admin-input-label {
+    @apply mb-1.5 block text-sm font-semibold leading-[1.4] text-[color:var(--theme-900)];
+  }
+
+  /* SEARCH */
+  .admin-input-search {
+    @apply relative;
+  }
+
+  .admin-input-search > svg {
+    @apply pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-[color:var(--theme-400)];
+  }
+
+  .admin-input-search > .admin-input {
+    @apply h-8 pl-9 pr-3 leading-5;
+  }
+
+  /* FOCUS */
+  .admin-input:focus-visible {
+    @apply outline-2 outline-solid outline-[color:var(--theme-700)] outline-offset-2;
+  }
+
+  .admin-input-search > .admin-input:focus-visible {
+    @apply outline-hidden ring-1 ring-[color:var(--theme-400)];
+  }
+
+  /* DISABLED */
+  .admin-input:disabled,
+  .admin-input[disabled] {
+    @apply cursor-not-allowed opacity-50;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-input:enabled:hover {
+    @apply border-[color:var(--theme-700)];
+  }
+
+  .admin-input-search > .admin-input:enabled:hover {
+    @apply border-[color:var(--theme-500)];
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-input {
+    @apply transition-none;
+  }
+}

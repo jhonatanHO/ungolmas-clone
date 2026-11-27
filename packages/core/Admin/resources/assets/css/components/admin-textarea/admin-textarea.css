@@ -1,0 +1,35 @@
+@reference 'tailwindcss';
+
+@layer components {
+  .admin-textarea-label {
+    @apply mb-1.5 block text-sm font-semibold leading-[1.4] text-[color:var(--theme-900)];
+  }
+
+  .admin-textarea {
+    @apply block min-h-20 w-full resize-y rounded-md border border-[color:var(--theme-400)] bg-[var(--theme-100)] px-2 py-[5px] text-sm leading-[1.4] text-[color:var(--theme-900)] transition-[border-color,box-shadow] duration-150 ease-out;
+  }
+
+  .admin-textarea::placeholder {
+    @apply text-[color:var(--theme-500)] opacity-100;
+  }
+
+  .admin-textarea:focus-visible {
+    @apply outline-2 outline-solid outline-[color:var(--theme-700)] outline-offset-2;
+  }
+
+  .admin-textarea:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-textarea:enabled:hover {
+    @apply border-[color:var(--theme-700)];
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-textarea {
+    @apply transition-none;
+  }
+}

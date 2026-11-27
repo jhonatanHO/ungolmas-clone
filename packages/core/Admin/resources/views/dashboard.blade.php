@@ -3,109 +3,104 @@
 @section('title', 'Dashboard | CMSNET')
 
 @section('content')
-<div class="max-w-6xl mx-auto flex flex-col gap-6">
+    <div id="dashboard-overview" class="@container space-y-5">
+        <header>
+            <h1 class="text-theme-900 text-2xl font-bold tracking-tight">Usuarios</h1>
+            <p class="text-theme-500 mt-2 text-sm">{{ $users->total() }} usuarios registrados · Más recientes primero</p>
+        </header>
 
-    <!-- Top Header -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-theme-300">
         <div>
-            <h1 class="text-2xl font-bold tracking-tight text-theme-900">Panel Administrativo CMSNET</h1>
-            <p class="text-sm text-theme-500 mt-1">Monolito Modular UNGOLMAS Core &middot; Arquitectura Tailwind y Temas Independientes.</p>
+            <div class="relative min-w-0 flex-1">
+                <div class="text-theme-400 pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="size-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                        stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="10.5" cy="10.5" r="7.5" />
+                        <path d="m16 16 5 5" />
+                    </svg>
+                </div>
+                <input type="search" aria-label="Buscar usuarios (demostración)" placeholder="Buscar usuarios (demo)..."
+                    aria-describedby="user-list-note"
+                    class="border-theme-400 bg-theme-100 text-theme-900 placeholder:text-theme-500 focus:outline-hidden focus:ring-theme-400 h-8 w-full rounded-md border pl-9 pr-3 text-sm focus:ring-1">
+            </div>
+
+            <p id="user-list-note" class="text-theme-500 mt-2 text-xs">Listado de solo lectura. La búsqueda continúa como
+                demostración.</p>
         </div>
-        <div class="flex items-center gap-2">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                Sistema Operacional
-            </span>
+
+        <div class="border-theme-300/80 bg-theme-100 shadow-2xs relative overflow-hidden rounded-lg border">
+            <div class="overflow-x-auto">
+                <table class="w-full min-w-[900px] border-collapse text-left text-sm">
+                    <caption class="sr-only">Usuarios registrados en la base de datos local</caption>
+                    <thead>
+                        <tr class="border-theme-300 bg-theme-200/60 text-theme-500 h-8 border-b text-xs">
+                            <th scope="col" class="px-3 font-medium">Usuario</th>
+                            <th scope="col" class="px-3 font-medium">Nombre completo</th>
+                            <th scope="col" class="px-3 font-medium">Correo</th>
+                            <th scope="col" class="px-3 font-medium">Tipo</th>
+                            <th scope="col" class="px-3 font-medium">Estado</th>
+                            <th scope="col" class="px-3 text-right font-medium">Registro</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-theme-300/60 text-theme-700 divide-y">
+                        @forelse ($users as $user)
+                            <tr data-user-row class="hover:bg-theme-200/60 h-10 transition-colors">
+                                <td class="px-3 py-1.5 align-middle">
+                                    <span
+                                        class="text-theme-900 block whitespace-nowrap font-medium">{{ $user->user }}</span>
+                                    <span class="text-theme-500 text-xs">#{{ $user->id }}</span>
+                                </td>
+                                <td class="max-w-56 truncate px-3 py-1.5 align-middle">
+                                    {{ collect([$user->name, $user->first_lastname, $user->second_lastname])->filter()->implode(' ') ?:'Sin nombre' }}
+                                </td>
+                                <td class="max-w-64 truncate px-3 py-1.5 align-middle">{{ $user->email }}</td>
+                                <td class="whitespace-nowrap px-3 py-1.5 align-middle">{{ $user->user_type ?? 'Sin tipo' }}
+                                </td>
+                                <td class="px-3 py-1.5 align-middle">
+                                    <span
+                                        class="border-theme-300 bg-theme-200 text-theme-700 inline-flex whitespace-nowrap rounded-full border px-2 py-0.5 text-xs">{{ $user->user_state ?? 'Sin estado' }}</span>
+                                </td>
+                                <td class="text-theme-500 whitespace-nowrap px-3 py-1.5 text-right align-middle">
+                                    {{ $user->created_at ? \Illuminate\Support\Carbon::parse($user->created_at)->format('d/m/Y') : '—' }}
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-theme-500 px-3 py-10 text-center">No hay usuarios
+                                    registrados.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <nav aria-label="Paginación de usuarios"
+                class="border-theme-300 text-theme-500 flex flex-wrap items-center justify-between gap-3 border-t px-3 py-3 text-xs">
+                <p>{{ $users->firstItem() ?? 0 }}–{{ $users->lastItem() ?? 0 }} de {{ $users->total() }} usuarios</p>
+                <div class="flex items-center gap-2">
+                    @if ($users->previousPageUrl())
+                        <a href="{{ $users->previousPageUrl() }}" rel="prev"
+                            class="border-theme-400 hover:bg-theme-200 text-theme-700 inline-flex h-8 items-center rounded-md border px-2.5">Anterior</a>
+                    @else
+                        <span aria-disabled="true"
+                            class="border-theme-300 inline-flex h-8 items-center rounded-md border px-2.5 opacity-50">Anterior</span>
+                    @endif
+                    @if ($users->nextPageUrl())
+                        <a href="{{ $users->nextPageUrl() }}" rel="next"
+                            class="border-theme-400 hover:bg-theme-200 text-theme-700 inline-flex h-8 items-center rounded-md border px-2.5">Siguiente</a>
+                    @else
+                        <span aria-disabled="true"
+                            class="border-theme-300 inline-flex h-8 items-center rounded-md border px-2.5 opacity-50">Siguiente</span>
+                    @endif
+                </div>
+            </nav>
         </div>
     </div>
-
-    <!-- Indicador y Selector Rápido de Temas -->
-    <div class="bg-theme-100 border border-theme-300 rounded-xl p-5 shadow-xs">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-                <h2 class="text-sm font-semibold text-theme-900">Temas de CMSNET (Tailwind Independiente)</h2>
-                <p class="text-xs text-theme-500 mt-0.5">Detecta automáticamente el modo del sistema operativo por defecto con soporte instantáneo a 3 paletas.</p>
-            </div>
-            <div class="flex items-center gap-1 bg-theme-200 p-1 rounded-lg border border-theme-300 text-xs shrink-0">
-                <button data-theme-btn="cmsnet-light" class="px-3 py-1.5 flex items-center gap-1.5 rounded text-theme-500 hover:text-theme-900 transition-colors font-medium">
-                    <span>Claro</span>
-                </button>
-                <button data-theme-btn="system" class="px-3 py-1.5 flex items-center gap-1.5 rounded text-theme-500 hover:text-theme-900 transition-colors font-medium">
-                    <span>Sistema (Auto)</span>
-                </button>
-                <button data-theme-btn="cmsnet-dark" class="px-3 py-1.5 flex items-center gap-1.5 rounded text-theme-500 hover:text-theme-900 transition-colors font-medium">
-                    <span>Dark (Obsidian)</span>
-                </button>
-                <button data-theme-btn="cmsnet-midnight" class="px-3 py-1.5 flex items-center gap-1.5 rounded text-theme-500 hover:text-theme-900 transition-colors font-medium">
-                    <span>Midnight (Navy)</span>
-                </button>
-            </div>
+    <section id="dashboard-preview" class="hidden space-y-6" aria-labelledby="dashboard-preview-title">
+        <h1 id="dashboard-preview-title" tabindex="-1" class="text-theme-900 text-2xl font-bold tracking-tight"></h1>
+        <div class="border-theme-300 bg-theme-100 rounded-xl border p-6">
+            <p id="dashboard-preview-description" class="text-theme-700 text-sm leading-relaxed"></p>
+            <p class="text-theme-500 mt-4 text-xs">Vista de demostración. Esta sección todavía no realiza operaciones
+                reales.</p>
         </div>
-    </div>
-
-    <!-- Grid de Métricas y Módulos Core -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div class="bg-theme-100 border border-theme-300 rounded-xl p-5">
-            <span class="text-xs font-medium text-theme-500 uppercase tracking-wider">Módulos Core Activos</span>
-            <div class="text-3xl font-extrabold text-theme-900 mt-2">6</div>
-            <p class="text-xs text-theme-500 mt-1">Config, User, Admin, Gamification, Game, WebApp</p>
-        </div>
-
-        <div class="bg-theme-100 border border-theme-300 rounded-xl p-5">
-            <span class="text-xs font-medium text-theme-500 uppercase tracking-wider">Integraciones Satélite</span>
-            <div class="text-3xl font-extrabold text-theme-900 mt-2">5</div>
-            <p class="text-xs text-theme-500 mt-1">News, Store, Avatar, Ranking, Ads</p>
-        </div>
-
-        <div class="bg-theme-100 border border-theme-300 rounded-xl p-5">
-            <span class="text-xs font-medium text-theme-500 uppercase tracking-wider">Pipeline de Assets</span>
-            <div class="text-3xl font-extrabold text-theme-900 mt-2">Vite 6</div>
-            <p class="text-xs text-theme-500 mt-1">Compilación centralizada con Tailwind @config aislado</p>
-        </div>
-    </div>
-
-    <!-- Muestra de Paleta Adaptativa -->
-    <div class="bg-theme-100 border border-theme-300 rounded-xl p-6">
-        <h3 class="text-sm font-semibold text-theme-900 mb-4">Escala de Superficies y Contraste Adaptativo (theme-*)</h3>
-        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-9 gap-2 text-center text-xs font-mono">
-            <div class="p-3 rounded-lg border border-theme-300 bg-theme-50 text-theme-900">
-                <span class="block font-bold">50</span>
-                <span class="text-[10px] text-theme-500">Canvas</span>
-            </div>
-            <div class="p-3 rounded-lg border border-theme-300 bg-theme-100 text-theme-900">
-                <span class="block font-bold">100</span>
-                <span class="text-[10px] text-theme-500">Surface</span>
-            </div>
-            <div class="p-3 rounded-lg border border-theme-300 bg-theme-200 text-theme-900">
-                <span class="block font-bold">200</span>
-                <span class="text-[10px] text-theme-500">Subtle</span>
-            </div>
-            <div class="p-3 rounded-lg border border-theme-300 bg-theme-300 text-theme-900">
-                <span class="block font-bold">300</span>
-                <span class="text-[10px] text-theme-500">Border</span>
-            </div>
-            <div class="p-3 rounded-lg border border-theme-300 bg-theme-400 text-theme-50">
-                <span class="block font-bold">400</span>
-                <span class="text-[10px] text-theme-500">Muted</span>
-            </div>
-            <div class="p-3 rounded-lg border border-theme-300 bg-theme-500 text-theme-50">
-                <span class="block font-bold">500</span>
-                <span class="text-[10px] text-theme-100">Secondary</span>
-            </div>
-            <div class="p-3 rounded-lg border border-theme-300 bg-theme-700 text-theme-50">
-                <span class="block font-bold">700</span>
-                <span class="text-[10px] text-theme-200">Body</span>
-            </div>
-            <div class="p-3 rounded-lg border border-theme-300 bg-theme-900 text-theme-50">
-                <span class="block font-bold">900</span>
-                <span class="text-[10px] text-theme-300">Heading</span>
-            </div>
-            <div class="p-3 rounded-lg border border-theme-300 bg-theme-950 text-theme-50">
-                <span class="block font-bold">950</span>
-                <span class="text-[10px] text-theme-300">Accent</span>
-            </div>
-        </div>
-    </div>
-
-</div>
+        @include('admin::partials.demo-forms')
+    </section>
 @endsection

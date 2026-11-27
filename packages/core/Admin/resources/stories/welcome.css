@@ -1,0 +1,329 @@
+@reference 'tailwindcss';
+
+/* NOTE: These scoped styles are shared by the introductory Storybook documentation pages. */
+.ugm-welcome {
+  @apply min-w-0 rounded-2xl bg-[var(--theme-50)] p-6 text-[color:var(--theme-900)] md:p-10;
+}
+
+.ugm-welcome :where(h1, h2, h3, p, ul) {
+  @apply m-0;
+}
+
+.ugm-welcome .ugm-welcome-hero {
+  @apply mb-10 max-w-3xl space-y-4;
+}
+
+.ugm-welcome .ugm-welcome-eyebrow {
+  @apply text-xs font-semibold uppercase tracking-widest text-[color:var(--theme-500)];
+}
+
+.ugm-welcome .ugm-welcome-title {
+  @apply text-balance text-3xl font-bold leading-tight tracking-tight md:text-5xl;
+}
+
+.ugm-welcome :where(.ugm-welcome-intro, .ugm-welcome-description) {
+  @apply max-w-2xl text-pretty text-base leading-7 text-[color:var(--theme-700)];
+}
+
+.ugm-welcome .ugm-welcome-resources {
+  @apply grid gap-4 md:grid-cols-3;
+}
+
+.ugm-welcome .ugm-welcome-resource {
+  @apply flex min-w-0 flex-col gap-4 rounded-xl border border-[color:var(--theme-300)] bg-[var(--theme-100)] p-6 text-[color:var(--theme-900)] no-underline transition-colors duration-150;
+}
+
+.ugm-welcome .ugm-welcome-resource:hover {
+  @apply border-[color:var(--theme-500)] bg-[var(--theme-200)] no-underline;
+}
+
+.ugm-welcome .ugm-welcome-number {
+  @apply inline-flex size-10 items-center justify-center rounded-lg bg-[var(--theme-200)] text-xs font-semibold text-[color:var(--theme-700)];
+}
+
+.ugm-welcome .ugm-welcome-resource h2 {
+  @apply border-0 p-0 text-xl font-semibold;
+}
+
+.ugm-welcome .ugm-welcome-resource p {
+  @apply text-sm leading-6 text-[color:var(--theme-700)];
+}
+
+.ugm-welcome .ugm-welcome-card-link {
+  @apply mt-auto flex items-center justify-between gap-3 pt-2 text-sm font-semibold;
+}
+
+.ugm-welcome .ugm-welcome-quicklinks {
+  @apply flex flex-wrap gap-4 text-sm font-semibold;
+}
+
+.ugm-welcome .ugm-welcome-quicklinks a {
+  @apply text-[color:var(--theme-900)] underline underline-offset-4;
+}
+
+.ugm-welcome .ugm-welcome-code {
+  @apply overflow-x-auto rounded-lg border border-[color:var(--theme-300)] bg-[var(--theme-100)] p-4 text-sm leading-6;
+}
+
+.ugm-welcome .ugm-welcome-code code {
+  @apply whitespace-pre font-mono text-[color:var(--theme-900)];
+}
+
+.ugm-welcome .ugm-welcome-section {
+  @apply mt-12 scroll-mt-6 space-y-4 border-t border-[color:var(--theme-300)] pt-8;
+}
+
+.ugm-welcome .ugm-welcome-heading {
+  @apply border-0 p-0 text-2xl font-semibold tracking-tight;
+}
+
+.ugm-welcome .ugm-welcome-team {
+  @apply grid list-none gap-4 p-0 pt-2 md:grid-cols-3;
+}
+
+.ugm-welcome .ugm-welcome-person {
+  @apply flex min-w-0 flex-col items-start gap-4 rounded-xl border border-[color:var(--theme-300)] bg-[var(--theme-100)] p-5;
+}
+
+.ugm-welcome .ugm-welcome-avatar {
+  @apply inline-flex size-12 items-center justify-center rounded-full bg-[var(--theme-200)] text-sm font-semibold text-[color:var(--theme-900)];
+}
+
+.ugm-welcome :where(.ugm-welcome-person h3, .ugm-welcome-subheading, .ugm-welcome-patterns h3) {
+  @apply text-base font-semibold;
+}
+
+.ugm-welcome .ugm-welcome-contributors {
+  @apply space-y-4 pt-4;
+}
+
+.ugm-welcome .ugm-welcome-contributor-list {
+  @apply flex list-none flex-wrap gap-3 p-0;
+}
+
+.ugm-welcome .ugm-welcome-contributor-list li {
+  @apply rounded-full border border-[color:var(--theme-300)] bg-[var(--theme-100)] px-4 py-2 text-sm text-[color:var(--theme-700)];
+}
+
+.ugm-welcome .ugm-welcome-patterns {
+  @apply grid list-none gap-4 p-0 md:grid-cols-2;
+}
+
+.ugm-welcome .ugm-welcome-patterns li {
+  @apply flex flex-col gap-3 rounded-xl border border-[color:var(--theme-300)] bg-[var(--theme-100)] p-5;
+}
+
+.ugm-welcome .ugm-welcome-patterns p {
+  @apply text-sm leading-6 text-[color:var(--theme-700)];
+}
+
+.ugm-welcome .ugm-welcome-patterns a {
+  @apply mt-auto pt-2 text-sm font-semibold text-[color:var(--theme-900)] underline underline-offset-4;
+}
+
+.ugm-welcome a:focus-visible {
+  @apply outline-2 outline-solid outline-[color:var(--theme-700)] outline-offset-4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ugm-welcome .ugm-welcome-resource {
+    @apply transition-none;
+  }
+}
+
+/* NOTE: The Welcome landing uses open sections without changing the other documentation pages. */
+.ugm-welcome.ugm-welcome-landing {
+  @apply rounded-none bg-transparent px-4 py-8 md:px-8 md:py-12;
+}
+
+.ugm-welcome-landing .ugm-welcome-hero {
+  @apply mx-auto mb-20 flex min-h-96 max-w-4xl flex-col items-center justify-center gap-6 space-y-0 text-center md:min-h-[480px];
+}
+
+.ugm-welcome-landing .ugm-welcome-title {
+  @apply text-4xl font-semibold leading-tight md:text-6xl;
+}
+
+.ugm-welcome-landing .ugm-welcome-intro {
+  @apply mx-auto max-w-xl text-lg leading-8;
+}
+
+.ugm-welcome-landing .ugm-welcome-resources {
+  @apply gap-10 md:gap-14;
+}
+
+.ugm-welcome-landing .ugm-welcome-resource {
+  @apply items-center gap-4 rounded-none border-0 bg-transparent px-0 py-6 text-center;
+}
+
+.ugm-welcome-landing .ugm-welcome-resource:hover {
+  @apply bg-transparent underline underline-offset-4;
+}
+
+.ugm-welcome-landing .ugm-welcome-resource h2 {
+  @apply text-2xl;
+}
+
+.ugm-welcome-landing .ugm-welcome-section {
+  @apply mt-24 space-y-6 border-0 pt-0 md:mt-32;
+}
+
+.ugm-welcome-landing .ugm-welcome-heading {
+  @apply text-3xl md:text-4xl;
+}
+
+.ugm-welcome-landing .ugm-welcome-team {
+  @apply gap-10 pt-8;
+}
+
+.ugm-welcome-landing .ugm-welcome-person {
+  @apply items-center gap-5 rounded-none border-0 bg-transparent px-0 py-4 text-center;
+}
+
+.ugm-welcome-landing .ugm-welcome-avatar {
+  @apply size-20 text-xl;
+}
+
+.ugm-welcome-landing .ugm-welcome-contributors {
+  @apply space-y-6 pt-12;
+}
+
+.ugm-welcome-landing .ugm-welcome-contributor-list {
+  @apply gap-x-10 gap-y-4;
+}
+
+.ugm-welcome-landing .ugm-welcome-contributor-list li {
+  @apply rounded-none border-0 bg-transparent p-0 text-base;
+}
+
+.ugm-welcome-landing .ugm-welcome-patterns {
+  @apply gap-10 pt-4;
+}
+
+.ugm-welcome-landing .ugm-welcome-patterns li {
+  @apply rounded-none border-0 bg-transparent p-0;
+}
+
+/* WELCOME ART */
+.ugm-welcome-landing .ugm-welcome-hero {
+  position: relative;
+  isolation: isolate;
+  max-width: none;
+  min-height: 620px;
+  padding: 100px 70px;
+  margin-bottom: 32px;
+}
+
+.ugm-welcome-art {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ugm-doodle {
+  position: absolute;
+  width: clamp(60px, 9vw, 110px);
+  height: auto;
+  animation: ugm-doodle-float 8s ease-in-out infinite;
+}
+
+.ugm-doodle-star { top: 3%; left: 5%; color: #fbbf24; transform: rotate(-12deg); }
+.ugm-doodle-orbit { top: 8%; left: 43%; color: #99e2dc; width: 65px; animation-delay: -3s; }
+.ugm-doodle-heart { top: 5%; right: 7%; color: #f472b6; animation-delay: -5s; }
+.ugm-doodle-flower { bottom: 15%; left: 1%; color: #34d399; animation-delay: -2s; }
+.ugm-doodle-spark { bottom: 0; left: 25%; color: #a78bfa; width: 70px; animation-delay: -6s; }
+.ugm-doodle-loop { bottom: 6%; right: 1%; color: #818cf8; animation-delay: -4s; }
+
+.ugm-welcome-landing .ugm-welcome-title { max-width: 760px; font-size: clamp(2.5rem, 5.2vw, 4.5rem); }
+.ugm-welcome .ugm-welcome-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding-top: 10px; }
+.ugm-welcome .ugm-welcome-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 13px 20px;
+  border: 1px solid var(--theme-900);
+  border-radius: 10px;
+  background: var(--theme-900);
+  color: var(--theme-50);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 180ms ease;
+}
+.ugm-welcome .ugm-welcome-cta-secondary { background: var(--theme-100); color: var(--theme-900); border-color: var(--theme-300); }
+.ugm-welcome .ugm-welcome-cta:hover { transform: translateY(-3px); }
+.ugm-welcome-landing .ugm-welcome-resources { gap: 20px; }
+.ugm-welcome-landing .ugm-welcome-resource { border: 1px solid var(--theme-300); border-radius: 16px; padding: 28px 24px; align-items: flex-start; text-align: left; }
+.ugm-welcome-landing .ugm-welcome-resource:hover { background: var(--theme-100); text-decoration: none; }
+
+/* CATALOG */
+.ugm-welcome.ugm-catalog { background: transparent; padding: 32px 16px; }
+.ugm-catalog .ugm-welcome-hero { margin-bottom: 32px; }
+.ugm-catalog-browser { border: 1px solid var(--theme-300); border-radius: 16px; padding: 24px; }
+.ugm-catalog-toolbar { display: flex; flex-direction: column; gap: 20px; }
+.ugm-catalog-search { display: flex; align-items: center; gap: 12px; border: 1px solid var(--theme-300); border-radius: 8px; padding: 0 15px; background: var(--theme-50); }
+.ugm-catalog-search:focus-within { outline: 2px solid var(--theme-700); outline-offset: 3px; }
+.ugm-catalog-search svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--theme-700); }
+.ugm-catalog-search input { width: 100%; min-width: 0; padding: 14px 0; border: 0; outline: none; background: transparent; color: var(--theme-900); font: inherit; font-size: 14px; }
+.ugm-catalog-search input::placeholder { color: var(--theme-700); }
+.ugm-catalog-filters { display: flex; flex-wrap: wrap; gap: 8px; border: 0; padding: 0; margin: 0; }
+.ugm-catalog-filters label { position: relative; cursor: pointer; }
+.ugm-catalog-filters input, .ugm-catalog-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.ugm-catalog-filters label > span { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid var(--theme-300); border-radius: 8px; font-size: 13px; }
+.ugm-catalog-filters small { opacity: .65; font-size: 11px; }
+.ugm-catalog-filters input:checked + span { color: var(--theme-50); background: var(--theme-900); border-color: var(--theme-900); }
+.ugm-catalog-filters input:focus-visible + span { outline: 2px solid var(--theme-700); outline-offset: 3px; }
+.ugm-welcome .ugm-catalog-count { margin: 24px 0 16px; font-size: 12px; }
+.ugm-welcome .ugm-catalog-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 20px; list-style: none; padding: 0; }
+.ugm-catalog-card { min-width: 0; }
+.ugm-catalog-card[hidden], .ugm-catalog-empty[hidden] { display: none; }
+.ugm-welcome .ugm-catalog-card-link { display: flex; height: 100%; flex-direction: column; color: var(--theme-900); text-decoration: none; border-radius: 12px; }
+.ugm-catalog-preview { position: relative; display: flex; align-items: center; justify-content: center; min-height: 200px; padding: 48px 20px 24px; border: 1px solid var(--theme-300); border-radius: 12px; background: var(--theme-100); transition: border-color 180ms ease, transform 180ms ease; }
+.ugm-catalog-card-link:hover .ugm-catalog-preview { border-color: var(--theme-700); transform: translateY(-3px); }
+.ugm-catalog-package { position: absolute; top: 14px; left: 14px; border: 1px solid var(--theme-300); padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; letter-spacing: .04em; }
+.ugm-catalog-samples { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; pointer-events: none; }
+.ugm-catalog-samples > span { gap: 16px; }
+.ugm-catalog-input-sample { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 250px; }
+.ugm-catalog-sample-label { font-size: 12px; font-weight: 600; }
+.ugm-catalog-fake-input { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; min-height: 42px; box-sizing: border-box; font-size: 12px; }
+.ugm-catalog-card-copy { display: flex; flex: 1; flex-direction: column; gap: 10px; padding: 18px 0 0; }
+.ugm-welcome .ugm-catalog-card-copy h2 { display: flex; justify-content: space-between; align-items: center; border: 0; padding: 0; font-size: 16px; font-weight: 650; }
+.ugm-catalog-card-copy h2 span { color: var(--theme-500); }
+.ugm-welcome .ugm-catalog-card-copy p { font-size: 13px; line-height: 1.7; }
+.ugm-catalog-card-detail { display: flex; justify-content: space-between; padding-top: 8px; margin-top: auto; font-size: 12px; font-weight: 600; }
+.ugm-catalog-empty { padding: 64px 16px; text-align: center; }
+.ugm-welcome .ugm-catalog-empty h2 { border: 0; font-size: 20px; }
+.ugm-welcome .ugm-catalog-empty p { margin-top: 12px; font-size: 14px; }
+.ugm-catalog-note { display: flex; align-items: flex-start; gap: 16px; padding: 24px 0; }
+.ugm-catalog-note > span { font-size: 24px; }
+.ugm-welcome .ugm-catalog-note p { font-size: 13px; line-height: 1.8; }
+
+@keyframes ugm-doodle-float {
+  0%, 100% { translate: 0 0; rotate: -8deg; }
+  50% { translate: 0 -18px; rotate: 8deg; }
+}
+
+@media (max-width: 1100px) {
+  .ugm-welcome .ugm-catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .ugm-welcome-landing .ugm-welcome-hero { min-height: 600px; padding: 100px 8px 80px; }
+  .ugm-doodle { width: 54px; }
+  .ugm-doodle-orbit { display: none; }
+  .ugm-doodle-flower { bottom: 3%; }
+  .ugm-doodle-spark { bottom: 0; left: 45%; width: 40px; }
+  .ugm-welcome-landing .ugm-welcome-intro { font-size: 16px; line-height: 1.8; }
+  .ugm-welcome .ugm-catalog-grid { grid-template-columns: minmax(0, 1fr); }
+  .ugm-catalog-browser { padding: 16px; }
+  .ugm-welcome.ugm-catalog { padding: 16px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ugm-doodle { animation: none; }
+  .ugm-welcome .ugm-welcome-cta, .ugm-catalog-preview { transition: none; }
+  .ugm-welcome .ugm-welcome-cta:hover, .ugm-catalog-card-link:hover .ugm-catalog-preview { transform: none; }
+}

@@ -1,0 +1,64 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { catalogItems, handleCatalogFilter } from './catalog-browser.js';
+import './welcome.css';
+
+<Meta title="Catalog" />
+
+<div className="ugm-welcome ugm-catalog">
+  <header className="ugm-welcome-hero">
+    <p className="ugm-welcome-eyebrow">UNGOLMAS · Biblioteca de interfaz</p>
+    <h1 className="ugm-welcome-title">Catalog</h1>
+    <p className="ugm-welcome-intro">Encuentra la pieza que necesitas. Explora los componentes, sus variantes y cómo utilizarlos.</p>
+  </header>
+  <section className="ugm-catalog-browser" aria-label="Catálogo de componentes">
+    <form className="ugm-catalog-toolbar" role="search" onSubmit={(event) => event.preventDefault()} onInput={handleCatalogFilter} onChange={handleCatalogFilter}>
+      <label className="ugm-catalog-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+        <span className="ugm-catalog-sr-only">Buscar componentes</span>
+        <input name="query" type="search" placeholder="Buscar por nombre de componente…" aria-controls="ugm-catalog-grid" />
+      </label>
+      <fieldset className="ugm-catalog-filters">
+        <legend className="ugm-catalog-sr-only">Filtrar por paquete</legend>
+        <label><input type="radio" name="package" value="all" defaultChecked /><span>Todos <small>04</small></span></label>
+        <label><input type="radio" name="package" value="Admin" /><span>Admin <small>02</small></span></label>
+        <label><input type="radio" name="package" value="WebApp" /><span>WebApp <small>02</small></span></label>
+      </fieldset>
+    </form>
+    <p className="ugm-catalog-count" role="status" aria-live="polite" aria-atomic="true" data-catalog-count>4 componentes</p>
+    <ul id="ugm-catalog-grid" className="ugm-catalog-grid">
+      {catalogItems.map((item) => (
+        <li key={item.name} className="ugm-catalog-card" data-catalog-name={item.name} data-catalog-package={item.package}>
+          <a className="ugm-catalog-card-link" href={`./?path=/docs/${item.docs}--docs`} target="_top">
+            <div className="ugm-catalog-preview" aria-hidden="true">
+              <span className="ugm-catalog-package">{item.package}</span>
+              {item.kind === 'button' ? (
+                <div className="ugm-catalog-samples">
+                  <span className={`${item.className} primary`}>Continuar <span>→</span></span>
+                  <span className={`${item.className} secondary`}>Cancelar</span>
+                </div>
+              ) : (
+                <div className="ugm-catalog-input-sample">
+                  <span className={item.package === 'Admin' ? 'admin-input-label' : 'ugm-catalog-sample-label'}>Tu próximo gran proyecto</span>
+                  <span className={`${item.className} ugm-catalog-fake-input`}>Escribe una idea…<span>↵</span></span>
+                </div>
+              )}
+            </div>
+            <div className="ugm-catalog-card-copy">
+              <h2>{item.name}<span aria-hidden="true">↗</span></h2>
+              <p>{item.description}</p>
+              <span className="ugm-catalog-card-detail">Explorar componente <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div className="ugm-catalog-empty" data-catalog-empty hidden>
+      <h2>No encontramos componentes</h2>
+      <p>Prueba con otro nombre o selecciona otro paquete.</p>
+    </div>
+  </section>
+  <aside className="ugm-catalog-note">
+    <span aria-hidden="true">↳</span>
+    <p><strong>Un sistema, dos contextos.</strong> Utiliza los componentes del paquete correspondiente: Admin para el panel y WebApp para la web pública. Las vistas previas son ejemplos visuales.</p>
+  </aside>
+</div>

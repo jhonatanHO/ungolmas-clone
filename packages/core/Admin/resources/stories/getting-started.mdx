@@ -1,0 +1,117 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import './welcome.css';
+
+<Meta title="Getting Started" />
+
+<div className="ugm-welcome">
+  <header className="ugm-welcome-hero">
+    <p className="ugm-welcome-eyebrow">UNGOLMAS · Getting Started</p>
+    <h1 className="ugm-welcome-title">Empieza con nuestro catálogo</h1>
+    <p className="ugm-welcome-intro">
+      Consulta los estilos, ejemplos y estados de los componentes de Admin y WebApp antes de
+      utilizarlos en una pantalla.
+    </p>
+    <nav className="ugm-welcome-quicklinks" aria-label="Documentación del catálogo">
+      <a href="./?path=/docs/welcome--docs" target="_top">Welcome</a>
+      <a href="./?path=/docs/catalog--docs" target="_top">Catalog</a>
+    </nav>
+  </header>
+
+<section className="ugm-welcome-section" aria-labelledby="getting-started-install">
+  <h2 id="getting-started-install" className="ugm-welcome-heading">
+    1. Preparar las dependencias
+  </h2>
+  <p className="ugm-welcome-description">
+    Desde la raíz del repositorio, utiliza Node.js y pnpm compatibles con el proyecto. Instala las
+    versiones registradas en el archivo de dependencias:
+  </p>
+  <pre className="ugm-welcome-code">
+    <code>pnpm install --frozen-lockfile</code>
+  </pre>
+  <p className="ugm-welcome-description">
+    Mantén la instalación y la ejecución en el mismo entorno: no mezcles dependencias instaladas
+    desde Windows con una ejecución en WSL, o viceversa.
+  </p>
+</section>
+
+<section className="ugm-welcome-section" aria-labelledby="getting-started-run">
+  <h2 id="getting-started-run" className="ugm-welcome-heading">
+    2. Iniciar Storybook
+  </h2>
+  <pre className="ugm-welcome-code">
+    <code>pnpm storybook</code>
+  </pre>
+  <p className="ugm-welcome-description">
+    Abre la dirección que muestra la terminal; por defecto es http://localhost:6006. Mantén esa
+    terminal abierta y utiliza Ctrl+C para detener el proceso. Ejecuta una sola instancia para
+    evitar conflictos de puerto.
+  </p>
+  <p className="ugm-welcome-description">
+    Los ejemplos actuales del catálogo no necesitan consultar la base de datos. El comando make dev
+    inicia Vite para la aplicación Laravel, no Storybook.
+  </p>
+</section>
+
+<section className="ugm-welcome-section" aria-labelledby="getting-started-explore">
+  <h2 id="getting-started-explore" className="ugm-welcome-heading">
+    3. Elegir el recurso correcto
+  </h2>
+  <ul className="ugm-welcome-patterns">
+    <li>
+      <h3>Admin</h3>
+      <p>AdminButton y AdminInput contienen los estilos del panel administrativo.</p>
+      <a href="./?path=/docs/admin-components-adminbutton--docs" target="_top">
+        Ver botones de Admin →
+      </a>
+    </li>
+    <li>
+      <h3>WebApp</h3>
+      <p>
+        Button e Input reúnen los ejemplos de la web pública. No sustituyen los estilos de Admin.
+      </p>
+      <a href="./?path=/docs/webapp-components-button--docs" target="_top">
+        Ver botones de WebApp →
+      </a>
+    </li>
+  </ul>
+  <p className="ugm-welcome-description">
+    En Docs encontrarás el HTML y las clases de uso; las historias individuales permiten probar cada
+    ejemplo. El botón sol/luna sincroniza el tema del menú, los paneles, la documentación y los
+    ejemplos. La elección se conserva al navegar y recargar, y solo afecta a Storybook.
+  </p>
+</section>
+
+<section className="ugm-welcome-section" aria-labelledby="getting-started-files">
+  <h2 id="getting-started-files" className="ugm-welcome-heading">
+    4. Ubicar los archivos
+  </h2>
+  <p className="ugm-welcome-description">
+    Los componentes CSS se organizan dentro de resources/assets/css/components de cada paquete. Por
+    ejemplo, AdminInput contiene estos tres archivos:
+  </p>
+  <pre className="ugm-welcome-code">
+    <code>{`packages/core/Admin/resources/assets/css/components/admin-input/
+├── admin-input.css         → estilos con @apply
+├── admin-input.stories.js  → ejemplos del componente
+└── admin-input.mdx         → documentación y código de uso`}</code>
+  </pre>
+  <p className="ugm-welcome-description">
+    Mantén las variantes, tamaños y estados documentados junto al componente. Utiliza datos
+    ficticios en las historias y no incluyas credenciales ni registros de producción.
+  </p>
+</section>
+
+  <section className="ugm-welcome-section" aria-labelledby="getting-started-build">
+    <h2 id="getting-started-build" className="ugm-welcome-heading">Publicar una versión estática</h2>
+    <pre className="ugm-welcome-code"><code>pnpm build-storybook</code></pre>
+    <p className="ugm-welcome-description">
+      Este comando genera la versión estática del catálogo. No es necesario ejecutarlo después de
+      cada cambio de estilos durante el desarrollo.
+    </p>
+    <p className="ugm-welcome-description">
+      Los cambios deberían actualizarse con el servidor de desarrollo abierto. Si aparecen
+      Connection lost o Server timed out, revisa la terminal y el servidor; esos avisos no indican
+      que debas cambiar los colores del componente o actualizar Storybook.
+    </p>
+  </section>
+</div>

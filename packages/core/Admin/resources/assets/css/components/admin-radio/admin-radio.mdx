@@ -1,0 +1,67 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import * as AdminRadioStories from './admin-radio.stories';
+
+<Meta of={AdminRadioStories} />
+
+# AdminRadio
+
+Selección única del panel CMSNET (`packages/core/Admin/resources/assets/css/components/admin-radio/admin-radio.css`). Reutiliza el aspecto del control nativo y las opciones de participación del formulario existente.
+
+## Base
+
+```html
+<fieldset class="admin-radio-group">
+  <legend>Participación</legend>
+  <div class="admin-radio-options">
+    <label class="admin-radio">
+      <input type="radio" name="participation" value="individual" checked />
+      <span>Individual</span>
+    </label>
+    <label class="admin-radio">
+      <input type="radio" name="participation" value="team" />
+      <span>Por equipos</span>
+    </label>
+  </div>
+</fieldset>
+```
+
+## Ejemplos
+
+### Sin selección
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminRadioStories.Default} />
+</div>
+
+### Seleccionado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminRadioStories.Selected} />
+</div>
+
+### Grupo
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminRadioStories.Group} />
+</div>
+
+### Grupo deshabilitado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminRadioStories.Disabled} />
+</div>
+
+## Uso y estados
+
+Comparte `name` entre opciones del mismo grupo y utiliza un nombre distinto para cada grupo.
+`fieldset` y `legend` describen la selección para tecnologías de asistencia.
+Prueba Tab y las flechas del teclado. Hereda Light/Dark; el hover no cambia el texto de la etiqueta.
+Los ejemplos no envían datos.
+
+## Clases
+
+| Uso                      | Clase                  |
+| ------------------------ | ---------------------- |
+| Grupo accesible          | `.admin-radio-group`   |
+| Distribución de opciones | `.admin-radio-options` |
+| Opción y etiqueta        | `.admin-radio`         |

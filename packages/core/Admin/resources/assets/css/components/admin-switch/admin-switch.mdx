@@ -1,0 +1,56 @@
+import { Meta, Story } from '@storybook/addon-docs/blocks';
+import * as AdminSwitchStories from './admin-switch.stories';
+
+<Meta of={AdminSwitchStories} />
+
+# AdminSwitch
+
+Interruptor del panel CMSNET (`packages/core/Admin/resources/assets/css/components/admin-switch/admin-switch.css`). Conserva la pista de 40 × 24 px y el indicador de 16 px del formulario existente.
+
+## Base
+
+```html
+<label class="admin-switch">
+  <span>Permitir inscripciones</span>
+  <input type="checkbox" role="switch" name="allow_registrations" />
+</label>
+```
+
+## Ejemplos
+
+### Desactivado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminSwitchStories.Default} />
+</div>
+
+### Activado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminSwitchStories.Checked} />
+</div>
+
+### Deshabilitado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminSwitchStories.Disabled} />
+</div>
+
+### Activado y deshabilitado
+
+<div className="sb-unstyled p-4">
+  <Story of={AdminSwitchStories.CheckedDisabled} />
+</div>
+
+## Uso y estados
+
+El checkbox nativo comunica el estado del switch; no dupliques ese estado con un `aria-checked`
+estático. Tab y Espacio permiten operarlo. El hover cambia solo el tono de la pista, sin invertir
+los colores por pasar el ratón. La animación se desactiva con movimiento reducido.
+Hereda Light/Dark y no persiste ninguna preferencia.
+
+## Clases
+
+| Uso                        | Clase           |
+| -------------------------- | --------------- |
+| Etiqueta y switch asociado | `.admin-switch` |
