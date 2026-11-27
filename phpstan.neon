@@ -6,8 +6,10 @@ parameters:
         - app
         - packages
     level: 8
-    ignoreErrors:
-        - '#PHPDoc tag @var#'
+    configDirectories:
+        - %currentWorkingDirectory%/config
+        - %currentWorkingDirectory%/packages/core/*/config
+        - %currentWorkingDirectory%/packages/integrations/*/config
     excludePaths:
         - packages/*/*/vendor/*
         - packages/*/*/node_modules/*

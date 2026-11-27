@@ -165,6 +165,10 @@ final class WordPressServiceTest extends TestCase
         ]);
 
         $result = $this->news()->getPostAndCategoryConcurrently('deportes', 'futbol');
+        self::assertNotNull($result['category']);
+        self::assertNotNull($result['post']);
+        self::assertArrayHasKey('id', $result['category']);
+        self::assertArrayHasKey('id', $result['post']);
         self::assertSame(3, $result['category']['id']);
         self::assertSame(7, $result['post']['id']);
         self::assertSame($result, $this->news()->getPostAndCategoryConcurrently('deportes', 'futbol'));
@@ -402,6 +406,8 @@ final class WordPressServiceTest extends TestCase
         } catch (WordPressApiException) {
             $result = $this->news()->getPostAndCategoryConcurrently('deportes', 'futbol');
             self::assertNull($result['category']);
+            self::assertNotNull($result['post']);
+            self::assertArrayHasKey('id', $result['post']);
             self::assertSame(7, $result['post']['id']);
         }
 
@@ -441,6 +447,8 @@ final class WordPressServiceTest extends TestCase
 
         $result = $this->news()->getPostAndCategoryConcurrently('deportes', 'futbol');
 
+        self::assertNotNull($result['post']);
+        self::assertArrayHasKey('id', $result['post']);
         self::assertSame(7, $result['post']['id']);
         Http::assertSentCount(3);
     }

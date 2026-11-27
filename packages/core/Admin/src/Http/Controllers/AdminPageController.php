@@ -92,6 +92,9 @@ final class AdminPageController
             $viewData['totalUsers'] = $users->total();
         }
 
-        return view((string) $config['view'], $viewData);
+        $view = $config['view'];
+        abort_if($view === null, 404);
+
+        return view($view, $viewData);
     }
 }

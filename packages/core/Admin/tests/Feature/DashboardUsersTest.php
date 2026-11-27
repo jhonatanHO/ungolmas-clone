@@ -17,11 +17,13 @@ use Ugm\User\Contracts\UserDirectory;
 final class DashboardUsersTest extends TestCase
 {
     /**
-     * Impide que las pruebas consulten las cuentas importadas en la BD local.
+     * Isolates database assertions and skips frontend assets in backend tests.
      */
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->withoutVite();
 
         self::assertSame('sqlite', config('database.default'));
         self::assertSame(':memory:', config('database.connections.sqlite.database'));
@@ -33,7 +35,7 @@ final class DashboardUsersTest extends TestCase
     #[Test]
     public function showsAnEmptyUserDirectory(): void
     {
-        $this->artisan('migrate', ['--force' => true])->assertExitCode(0);
+        $this->artisanCommand('migrate', ['--force' => true])->assertExitCode(0);
 
         $this->withSession(['session-admin' => true])
             ->get('/cmsnet')
@@ -50,7 +52,7 @@ final class DashboardUsersTest extends TestCase
     public function showsLatestPublicUsersWithPaginationAndRealTotals(): void
     {
         $this->createUsers(21);
-        $this->artisan('admin:seed')->assertExitCode(0);
+        $this->artisanCommand('admin:seed')->assertExitCode(0);
 
         $response = $this->withSession(['session-admin' => true])
             ->get('/cmsnet')
@@ -182,7 +184,7 @@ final class DashboardUsersTest extends TestCase
     #[Test]
     public function enforcesPublicAndPrivateRoutesWithActiveAdminSession(): void
     {
-        $this->artisan('migrate', ['--force' => true])->assertExitCode(0);
+        $this->artisanCommand('migrate', ['--force' => true])->assertExitCode(0);
 
         $this->withSession(['session-admin' => true])
             ->get('/cmsnet/iniciar-sesion')
@@ -213,7 +215,7 @@ final class DashboardUsersTest extends TestCase
     {
         $prefix = (string) config('custom.db_table_fix', '');
 
-        $this->artisan('migrate', ['--force' => true])->assertExitCode(0);
+        $this->artisanCommand('migrate', ['--force' => true])->assertExitCode(0);
         DB::table($prefix.'users_type')->insert([
             'id' => 1, 'uuid' => (string) Str::uuid(), 'type' => 'User', 'visible' => true, 'order' => 1,
         ]);

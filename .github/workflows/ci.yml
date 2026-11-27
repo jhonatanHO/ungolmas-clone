@@ -27,6 +27,9 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
 
+      - name: Generate application key for CI
+        run: php artisan key:generate --force --no-interaction
+
       - name: Run Laravel Pint (Code Style)
         run: ./vendor/bin/pint --test
 
