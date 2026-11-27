@@ -55,7 +55,7 @@ final class UserSchemaTest extends TestCase
         $userStatesTable = $prefix.'user_states';
         $documentsTypeTable = $prefix.'documents_type';
 
-        $this->artisan('migrate', ['--force' => true])->assertExitCode(0);
+        $this->artisanCommand('migrate', ['--force' => true])->assertExitCode(0);
 
         self::assertTrue(Schema::hasColumns($usersTable, [
             'id', 'uuid', 'user_type_id', 'document_type_id', 'user_state_id', 'user',
@@ -96,7 +96,7 @@ final class UserSchemaTest extends TestCase
     {
         $prefix = (string) config('custom.db_table_fix', '');
 
-        $this->artisan('migrate', ['--force' => true])->assertExitCode(0);
+        $this->artisanCommand('migrate', ['--force' => true])->assertExitCode(0);
 
         $this->expectException(QueryException::class);
         DB::table($prefix.'users')->insert($this->userAttributes());
@@ -120,7 +120,7 @@ final class UserSchemaTest extends TestCase
         ]);
 
         try {
-            $this->migration(self::USERS_MIGRATION)->up();
+            $this->runMigration(self::USERS_MIGRATION, 'up');
             self::fail('La migración no debe alterar usuarios existentes.');
         } catch (RuntimeException $exception) {
             self::assertStringContainsString('migración de datos', $exception->getMessage());
@@ -140,10 +140,10 @@ final class UserSchemaTest extends TestCase
         $prefix = (string) config('custom.db_table_fix', '');
         $usersTable = $prefix.'users';
 
-        $this->artisan('migrate', ['--force' => true])->assertExitCode(0);
+        $this->artisanCommand('migrate', ['--force' => true])->assertExitCode(0);
 
         foreach (array_reverse(self::MIGRATIONS) as $migrationPath) {
-            $this->migration($migrationPath)->down();
+            $this->runMigration($migrationPath, 'down');
         }
 
         self::assertTrue(Schema::hasTable($usersTable));
@@ -154,7 +154,7 @@ final class UserSchemaTest extends TestCase
         self::assertTrue(Schema::hasTable('sessions'));
 
         foreach (self::MIGRATIONS as $migrationPath) {
-            $this->migration($migrationPath)->up();
+            $this->runMigration($migrationPath, 'up');
         }
 
         self::assertTrue(Schema::hasColumn($usersTable, 'uuid'));
@@ -172,12 +172,12 @@ final class UserSchemaTest extends TestCase
         $prefix = (string) config('custom.db_table_fix', '');
         $usersTable = $prefix.'users';
 
-        $this->artisan('migrate', ['--force' => true])->assertExitCode(0);
+        $this->artisanCommand('migrate', ['--force' => true])->assertExitCode(0);
         $this->insertCatalogs();
         DB::table($usersTable)->insert($this->userAttributes());
 
         try {
-            $this->migration(self::USERS_MIGRATION)->down();
+            $this->runMigration(self::USERS_MIGRATION, 'down');
             self::fail('La reversión no debe eliminar datos de perfil existentes.');
         } catch (RuntimeException $exception) {
             self::assertStringContainsString('usuarios existentes', $exception->getMessage());
@@ -195,7 +195,7 @@ final class UserSchemaTest extends TestCase
     {
         $prefix = (string) config('custom.db_table_fix', '');
 
-        $this->artisan('migrate', ['--force' => true])->assertExitCode(0);
+        $this->artisanCommand('migrate', ['--force' => true])->assertExitCode(0);
 
         require_once base_path('packages/core/User/database/seeders/UsersTypeSeeder.php');
         require_once base_path('packages/core/User/database/seeders/UserStatesSeeder.php');
@@ -219,11 +219,17 @@ final class UserSchemaTest extends TestCase
     }
 
     /**
-     * Carga una migración del paquete sin depender de autoload de archivos de datos.
+     * Runs a package migration after checking its requested lifecycle method.
+     *
+     * @param  'up'|'down'  $direction
      */
-    private function migration(string $path): Migration
+    private function runMigration(string $path, string $direction): void
     {
-        return require base_path($path);
+        $migration = require base_path($path);
+        self::assertInstanceOf(Migration::class, $migration);
+        $action = [$migration, $direction];
+        self::assertIsCallable($action);
+        $action();
     }
 
     /**

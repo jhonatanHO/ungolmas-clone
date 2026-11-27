@@ -45,7 +45,9 @@ final class NewsPaginationTest extends TestCase
             ->assertSee('href="'.route('news.index', ['page' => 2]).'"', false);
         $second = $this->get('/noticias?page=2')->assertOk()
             ->assertSee('rel="canonical" href="'.route('news.index', ['page' => 2]).'"', false);
-        self::assertMatchesRegularExpression('/Página\s+2\s+de\s+3/', strip_tags($second->getContent()));
+        $content = $second->getContent();
+        self::assertIsString($content);
+        self::assertMatchesRegularExpression('/Página\s+2\s+de\s+3/', strip_tags($content));
 
         self::assertCount(40, $first->viewData('posts'));
         self::assertCount(40, $second->viewData('posts'));
@@ -88,7 +90,9 @@ final class NewsPaginationTest extends TestCase
 
         foreach (['/noticias?page=3', '/noticias/deportes?page=3'] as $url) {
             $last = $this->get($url)->assertOk()->assertDontSee('rel="next"', false);
-            self::assertMatchesRegularExpression('/Página\s+3\s+de\s+3/', strip_tags($last->getContent()));
+            $content = $last->getContent();
+            self::assertIsString($content);
+            self::assertMatchesRegularExpression('/Página\s+3\s+de\s+3/', strip_tags($content));
             self::assertCount(1, $last->viewData('posts'));
         }
     }
@@ -180,14 +184,21 @@ final class NewsPaginationTest extends TestCase
     {
         $this->fakeArchive();
         $response = $this->get('/noticias?page=2')->assertOk();
-        self::assertSame(1, preg_match('~<nav aria-label="Paginación de noticias".*?</nav>~s', $response->getContent(), $matches));
+        $content = $response->getContent();
+        self::assertIsString($content);
+        if (preg_match('~<nav aria-label="Paginación de noticias".*?</nav>~s', $content, $matches) !== 1) {
+            self::fail('The News page must contain pagination controls.');
+        }
         self::assertStringNotContainsString('news-headline', $matches[0]);
         self::assertStringContainsString('aria-current="page"', $matches[0]);
         self::assertStringContainsString('rounded-full', $matches[0]);
         self::assertStringContainsString('focus-visible:outline-white', $matches[0]);
-        self::assertSame(1, preg_match('~<span aria-current="page"[^>]*class="([^"]+)"~s', $matches[0], $active));
+        if (preg_match('~<span aria-current="page"[^>]*class="([^"]+)"~s', $matches[0], $active) !== 1) {
+            self::fail('The current pagination page must have CSS classes.');
+        }
         self::assertStringContainsString('bg-news-accent', $active[1]);
         preg_match_all('~<a\b[^>]*class="([^"]+)"~s', $matches[0], $links);
+        self::assertArrayHasKey(1, $links);
         foreach ($links[1] as $classes) {
             self::assertStringNotContainsString('news-accent', $classes);
         }

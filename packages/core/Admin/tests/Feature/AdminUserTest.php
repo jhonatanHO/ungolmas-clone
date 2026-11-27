@@ -86,12 +86,12 @@ final class AdminUserTest extends TestCase
     public function seedsTwoAdminsWithIndependentIdsAndHashedPasswords(): void
     {
         $this->migrateAdmin();
-        $this->artisan('admin:seed')->assertExitCode(0);
+        $this->artisanCommand('admin:seed')->assertExitCode(0);
 
         self::assertSame(2, AdminUser::query()->count());
         foreach (['admin01', 'admin02'] as $user) {
             $admin = AdminUser::query()->where('user', $user)->firstOrFail();
-            self::assertIsInt($admin->id);
+            self::assertGreaterThan(0, $admin->id);
             self::assertTrue(Str::isUuid($admin->uuid));
             self::assertSame($user.'@example.com', $admin->email);
             self::assertSame('Administrador', $admin->name);
@@ -110,17 +110,17 @@ final class AdminUserTest extends TestCase
     public function repeatedSeedingPreservesExistingAccounts(): void
     {
         $this->migrateAdmin();
-        $this->artisan('admin:seed')->assertExitCode(0);
+        $this->artisanCommand('admin:seed')->assertExitCode(0);
         $admin = AdminUser::query()->where('user', 'admin01')->firstOrFail();
         $admin->update(['name' => 'Nombre modificado', 'password' => 'ChangedOnlyForTesting!']);
         $before = AdminUser::query()->orderBy('id')->get()->map->getAttributes()->all();
 
         config()->set('admin.seed_passwords', ['admin01' => 'OtherTestingPassword!', 'admin02' => 'OtherTestingPassword!']);
-        $this->artisan('admin:seed')->assertExitCode(0);
+        $this->artisanCommand('admin:seed')->assertExitCode(0);
 
         self::assertSame(2, AdminUser::query()->count());
         self::assertSame($before, AdminUser::query()->orderBy('id')->get()->map->getAttributes()->all());
-        self::assertTrue(Hash::check('ChangedOnlyForTesting!', $admin->fresh()->password));
+        self::assertTrue(Hash::check('ChangedOnlyForTesting!', $admin->refresh()->password));
     }
 
     /**
@@ -131,7 +131,7 @@ final class AdminUserTest extends TestCase
     public function rejectsDuplicateIdentifiers(string $field): void
     {
         $this->migrateAdmin();
-        $this->artisan('admin:seed')->assertExitCode(0);
+        $this->artisanCommand('admin:seed')->assertExitCode(0);
         $admin = AdminUser::query()->where('user', 'admin01')->firstOrFail();
         $attributes = [
             'uuid' => (string) Str::uuid(), 'user' => 'anotheradmin', 'email' => 'another@example.com',
@@ -164,12 +164,12 @@ final class AdminUserTest extends TestCase
             'user' => 'admin02', 'email' => 'different@example.com', 'name' => 'Existente',
             'first_lastname' => 'Prueba', 'password' => 'TestingOnly-Password!',
         ]);
-        $before = $existing->fresh()->getAttributes();
+        $before = $existing->refresh()->getAttributes();
 
-        $this->artisan('admin:seed')->assertExitCode(1);
+        $this->artisanCommand('admin:seed')->assertExitCode(1);
 
         self::assertSame(1, AdminUser::query()->count());
-        self::assertSame($before, $existing->fresh()->getAttributes());
+        self::assertSame($before, $existing->refresh()->getAttributes());
         self::assertFalse(AdminUser::query()->where('user', 'admin01')->exists());
     }
 
@@ -182,7 +182,7 @@ final class AdminUserTest extends TestCase
         $this->migrateAdmin();
         $this->app->instance('env', 'production');
 
-        $this->artisan('admin:seed')->assertExitCode(1);
+        $this->artisanCommand('admin:seed')->assertExitCode(1);
         self::assertSame(0, AdminUser::query()->count());
     }
 
@@ -205,7 +205,7 @@ final class AdminUserTest extends TestCase
     #[Test]
     public function seedingRequiresTheAdminMigration(): void
     {
-        $this->artisan('admin:seed')->assertExitCode(1);
+        $this->artisanCommand('admin:seed')->assertExitCode(1);
         self::assertFalse(Schema::hasTable(((string) config('custom.db_table_fix', '')).'admin_users'));
     }
 
@@ -218,7 +218,7 @@ final class AdminUserTest extends TestCase
         $this->migrateAdmin();
         config()->set('admin.seed_passwords.admin02', 'short');
 
-        $this->artisan('admin:seed')->assertExitCode(1);
+        $this->artisanCommand('admin:seed')->assertExitCode(1);
         self::assertSame(0, AdminUser::query()->count());
     }
 
@@ -243,7 +243,11 @@ final class AdminUserTest extends TestCase
             $expectedPassword = $admin->user === 'admin01' ? 'Admin01-LocalOnly!' : 'Admin02-LocalOnly!';
             self::assertSame($expectedPassword, $matches[1]);
         }
-        self::assertNotSame($admins[0]->password, $admins[1]->password);
+        $firstAdmin = $admins->get(0);
+        $secondAdmin = $admins->get(1);
+        self::assertInstanceOf(AdminUser::class, $firstAdmin);
+        self::assertInstanceOf(AdminUser::class, $secondAdmin);
+        self::assertNotSame($firstAdmin->password, $secondAdmin->password);
 
         self::assertSame(0, Artisan::call('admin:seed', [], $output));
         self::assertStringNotContainsString('admin01:', $output->fetch());
@@ -265,11 +269,13 @@ final class AdminUserTest extends TestCase
             'name' => 'Usuario público', 'email' => 'public@example.com', 'password' => Hash::make('TestingOnly-Public!'),
         ]);
         $this->migrateAdmin();
-        $this->artisan('admin:seed')->assertExitCode(0);
+        $this->artisanCommand('admin:seed')->assertExitCode(0);
 
         $migration = require base_path(self::MIGRATION);
         self::assertInstanceOf(Migration::class, $migration);
-        $migration->down();
+        $rollback = [$migration, 'down'];
+        self::assertIsCallable($rollback);
+        $rollback();
 
         self::assertFalse(Schema::hasTable($adminTable));
         self::assertSame(1, DB::table($usersTable)->count());
@@ -281,7 +287,7 @@ final class AdminUserTest extends TestCase
      */
     private function migrateAdmin(): void
     {
-        $this->artisan('migrate', [
+        $this->artisanCommand('migrate', [
             '--path' => 'packages/core/Admin/database/migrations', '--force' => true,
         ])->assertExitCode(0);
     }

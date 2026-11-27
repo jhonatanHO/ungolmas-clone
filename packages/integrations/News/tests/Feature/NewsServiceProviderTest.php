@@ -6,6 +6,7 @@ namespace Ugm\News\Tests\Feature;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\FileViewFinder;
 use PHPUnit\Framework\Attributes\Test;
 use ReflectionClass;
 use Tests\TestCase;
@@ -70,7 +71,9 @@ final class NewsServiceProviderTest extends TestCase
 
         (new NewsServiceProvider($this->app))->boot();
 
-        $hints = $this->app['view']->getFinder()->getHints();
+        $finder = $this->app['view']->getFinder();
+        self::assertInstanceOf(FileViewFinder::class, $finder);
+        $hints = $finder->getHints();
         $paths = array_map(
             static fn (string $path): string|false => realpath($path),
             $hints['news'] ?? [],
@@ -92,6 +95,7 @@ final class NewsServiceProviderTest extends TestCase
     {
         config()->set('news.enabled', false);
         $finder = $this->app['view']->getFinder();
+        self::assertInstanceOf(FileViewFinder::class, $finder);
         $finder->replaceNamespace('news', []);
 
         Route::shouldReceive('middleware')->never();

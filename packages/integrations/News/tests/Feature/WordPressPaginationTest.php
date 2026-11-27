@@ -91,8 +91,8 @@ final class WordPressPaginationTest extends TestCase
             try {
                 app(NewsRepository::class)->getCategoryPostsPage(3);
                 self::fail('Expected invalid pagination metadata to be rejected.');
-            } catch (WordPressApiException) {
-                self::assertTrue(true);
+            } catch (WordPressApiException $exception) {
+                self::assertNull($exception->upstreamStatus);
             }
         }
         Http::assertSentCount(2);
@@ -109,8 +109,8 @@ final class WordPressPaginationTest extends TestCase
             try {
                 app(NewsRepository::class)->getIndexPosts();
                 self::fail('Expected missing homepage pagination metadata to be rejected.');
-            } catch (WordPressApiException) {
-                self::assertTrue(true);
+            } catch (WordPressApiException $exception) {
+                self::assertNull($exception->upstreamStatus);
             }
         }
         Http::assertSentCount(6);

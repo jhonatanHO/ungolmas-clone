@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ugm\Admin\Traits;
 
 /*
@@ -19,7 +21,7 @@ trait AdminSeoMetaData
      * @param  string  $page  The unique identifier of the admin page.
      * @return array{
      *     title: string,
-     *     view: string|null,
+     *     view: view-string|null,
      *     private: bool,
      *     seo: array{title: string, description: string, keywords: string}
      * }|null

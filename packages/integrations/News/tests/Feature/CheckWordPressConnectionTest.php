@@ -38,7 +38,7 @@ final class CheckWordPressConnectionTest extends TestCase
         Http::fake(['wordpress.test/*' => Http::response([])]);
 
         foreach ([1, 2] as $run) {
-            $this->artisan('news:check-connection')
+            $this->artisanCommand('news:check-connection')
                 ->expectsOutput('categories: OK (0 resultados)')
                 ->expectsOutput('posts: OK (0 resultados)')
                 ->expectsOutput('featured: OK (0 resultados)')
@@ -57,7 +57,7 @@ final class CheckWordPressConnectionTest extends TestCase
     {
         Http::fake(['wordpress.test/*' => Http::response(['private' => 'not-for-output'], 400)]);
 
-        $this->artisan('news:check-connection')
+        $this->artisanCommand('news:check-connection')
             ->expectsOutput('No se pudo consultar la API de noticias.')
             ->assertFailed();
 

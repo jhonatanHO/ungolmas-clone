@@ -67,7 +67,11 @@ final class NewsPagesTest extends TestCase
             ->assertDontSee('/webapp', false)
             ->assertDontSee('fonts.googleapis.com', false);
 
-        self::assertSame(1, preg_match('~<header\b[^>]*>(.*?)</header>~s', $response->getContent(), $matches));
+        $content = $response->getContent();
+        self::assertIsString($content);
+        if (preg_match('~<header\b[^>]*>(.*?)</header>~s', $content, $matches) !== 1) {
+            self::fail('The News page must contain a header.');
+        }
         self::assertSame(1, preg_match_all('~<a\b~', $matches[1]));
         self::assertSame('Noticias', trim(strip_tags($matches[1])));
         self::assertStringContainsString(route('news.index'), $matches[1]);
@@ -86,7 +90,11 @@ final class NewsPagesTest extends TestCase
 
         foreach (['/noticias', '/noticias/deportes', '/noticia/deportes/partido'] as $url) {
             $response = $this->get($url)->assertOk();
-            self::assertSame(1, preg_match('~<footer\b[^>]*>(.*?)</footer>~s', $response->getContent(), $matches));
+            $content = $response->getContent();
+            self::assertIsString($content);
+            if (preg_match('~<footer\b[^>]*>(.*?)</footer>~s', $content, $matches) !== 1) {
+                self::fail('The News page must contain a footer.');
+            }
             self::assertStringContainsString('Síguenos en nuestros canales oficiales', $matches[1]);
             self::assertStringContainsString('Powered by', $matches[1]);
             self::assertStringContainsString('alt="LNM &amp; Combativa"', $matches[1]);
