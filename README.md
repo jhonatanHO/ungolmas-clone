@@ -293,4 +293,4 @@ MIT license
 
 <img src="./resources/img/combativa.rm.svg?c=2" width="250" alt="Combativa">
 
-© 2026 - Present [Combativa](https://combativa.com?resources=github)
+© 2026 - Present [Combativa](https://combativa.com?resources=github) 
