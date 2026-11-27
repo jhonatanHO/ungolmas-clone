@@ -17,11 +17,13 @@ use Ugm\User\Contracts\UserDirectory;
 final class DashboardUsersTest extends TestCase
 {
     /**
-     * Impide que las pruebas consulten las cuentas importadas en la BD local.
+     * Isolates database assertions and skips frontend assets in backend tests.
      */
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->withoutVite();
 
         self::assertSame('sqlite', config('database.default'));
         self::assertSame(':memory:', config('database.connections.sqlite.database'));
